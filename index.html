@@ -63,7 +63,7 @@
       background: var(--c-bg);
       color: var(--c-ink);
       line-height: 1.65;
-      overflow-x: hidden;
+      overflow-x: hidden; margin: 0;
     }
     img { display: block; max-width: 100%; height: auto; }
     a { color: inherit; text-decoration: none; }
@@ -222,44 +222,57 @@
     }
 
     /* ─── Nav ────────────────────────────────────────────────── */
-    .nav {
+        .nav {
       position: sticky; top: 0; z-index: 100;
       background: oklch(from var(--c-bg) l c h / 0.92);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid oklch(from var(--c-ink) l c h / 0.08);
-      padding: 0.85rem 5vw;
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: clamp(0.75rem, 1.2vw, 1rem) clamp(1rem, 4vw, 5vw);
+      display: flex; align-items: center; justify-content: space-between; gap: clamp(1rem, 2vw, 2rem);
     }
     .nav__logo {
       font-family: var(--ff-head);
-      font-size: var(--step-1);
+      font-size: clamp(1.05rem, 1.3vw, 1.25rem);
       font-weight: 900;
       letter-spacing: -0.02em;
-      line-height: 1;
-      display: flex; align-items: center; gap: 0.4rem;
+      color: var(--c-ink);
+      display: flex; align-items: center; gap: 0.5rem;
+      flex-shrink: 0;
     }
     .nav__logo-mark {
       background: var(--c-saffron);
       color: oklch(15% 0.01 60);
-      width: 30px; height: 30px; border-radius: 8px;
+      width: clamp(28px, 4vw, 32px);
+      height: clamp(28px, 4vw, 32px);
+      border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; flex-shrink: 0;
+      font-size: 1.1rem;
     }
     .nav__links {
-      display: flex; gap: 2rem; align-items: center;
+      display: flex;
+      gap: clamp(1.25rem, 2.5vw, 2rem);
+      align-items: center;
     }
     .nav__links a {
       font-weight: 500;
       color: var(--c-ink-muted);
       transition: color 0.2s;
       font-size: var(--step-0);
+      white-space: nowrap;
     }
     .nav__links a:hover { color: var(--c-ink); }
-    .nav__actions { display: flex; gap: 0.75rem; align-items: center; }
+    .nav__actions {
+      display: flex;
+      gap: clamp(0.65rem, 1.2vw, 0.85rem);
+      align-items: center;
+      flex-shrink: 0;
+    }
     .nav__login {
-      font-weight: 600; color: var(--c-ink-muted);
+      font-weight: 600;
+      color: var(--c-ink-muted);
       font-size: var(--step-0);
       transition: color 0.2s;
+      white-space: nowrap;
     }
     .nav__login:hover { color: var(--c-ink); }
     .btn {
@@ -288,8 +301,95 @@
       transition-duration: 80ms;
     }
     .btn--lg { padding: 0.68rem 1.6rem; font-size: var(--step-0); }
-    .nav__hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; }
+    .nav__hamburger { 
+      display: none; 
+      flex-direction: column; 
+      gap: 5px; 
+      padding: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+    .nav__hamburger:hover {
+      background: oklch(from var(--c-ink) l c h / 0.06);
+    }
     .nav__hamburger span { display: block; width: 22px; height: 2px; background: var(--c-ink); border-radius: 2px; }
+    
+    /* Mobile navigation drawer */
+    .nav__mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(320px, 85vw);
+      background: var(--c-surface);
+      box-shadow: -8px 0 32px oklch(from var(--c-ink) l c h / 0.15);
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+    .nav__mobile-menu.is-open {
+      transform: translateX(0);
+    }
+    .nav__mobile-close {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--c-ink);
+      padding: 0.5rem;
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+    }
+    .nav__mobile-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 2rem;
+    }
+    .nav__mobile-links a {
+      padding: 1rem 0;
+      font-size: var(--step-1);
+      font-weight: 600;
+      color: var(--c-ink);
+      border-bottom: 1px solid oklch(from var(--c-ink) l c h / 0.08);
+    }
+    .nav__mobile-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .nav__overlay {
+      position: fixed;
+      inset: 0;
+      background: oklch(from var(--c-ink) l c h / 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 199;
+    }
+    .nav__overlay.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    /* Tablet navbar adjustments */
+    @media (max-width: 920px) {
+      .nav__links {
+        gap: 1.25rem;
+      }
+      .nav__links a {
+        font-size: 0.9rem;
+      }
+      .nav__login {
+        display: none;
+      }
+    }
     @media (max-width: 720px) {
       .nav__links { display: none; }
       .nav__hamburger { display: flex; }
@@ -1546,6 +1646,80 @@
       align-items: center; flex-wrap: wrap; gap: 1rem;
       font-size: 0.82rem; color: oklch(48% 0.008 80);
     }
+    
+    /* Mobile navigation drawer */
+    .nav__mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(320px, 85vw);
+      background: var(--c-surface);
+      box-shadow: -8px 0 32px oklch(from var(--c-ink) l c h / 0.15);
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+    .nav__mobile-menu.is-open {
+      transform: translateX(0);
+    }
+    .nav__mobile-close {
+      align-self: flex-end;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--c-ink);
+      padding: 0.5rem;
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+    }
+    .nav__mobile-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 2rem;
+    }
+    .nav__mobile-links a {
+      padding: 1rem 0;
+      font-size: var(--step-1);
+      font-weight: 600;
+      color: var(--c-ink);
+      border-bottom: 1px solid oklch(from var(--c-ink) l c h / 0.08);
+    }
+    .nav__mobile-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .nav__overlay {
+      position: fixed;
+      inset: 0;
+      background: oklch(from var(--c-ink) l c h / 0.4);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 199;
+    }
+    .nav__overlay.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    /* Tablet navbar adjustments */
+    @media (max-width: 920px) {
+      .nav__links {
+        gap: 1.25rem;
+      }
+      .nav__links a {
+        font-size: 0.9rem;
+      }
+      .nav__login {
+        display: none;
+      }
+    }
     @media (max-width: 720px) {
       .footer__top { grid-template-columns: 1fr 1fr; }
       .footer__top > :first-child { grid-column: 1 / -1; }
@@ -2059,18 +2233,18 @@
   <!-- ─── Trust marquee ────────────────────────────────────── -->
   <div class="trust-bar" aria-hidden="true">
     <div class="trust-bar__track">
-      <span>📦 FEFO inventory ranking</span>
-      <span>🤖 ML spoilage scoring (0–1)</span>
-      <span>📈 3–7 day demand forecasting</span>
-      <span>♻️ Full sustainability audit trail</span>
-      <span>🌍 Built for retailers worldwide</span>
-      <span>💰 Value recovery tracking</span>
-      <span>📦 FEFO inventory ranking</span>
-      <span>🤖 ML spoilage scoring (0–1)</span>
-      <span>📈 3–7 day demand forecasting</span>
-      <span>♻️ Full sustainability audit trail</span>
-      <span>🌍 Built for retailers worldwide</span>
-      <span>💰 Value recovery tracking</span>
+      <span>• FEFO inventory ranking</span>
+      <span>• ML spoilage scoring (0–1)</span>
+      <span>• 3–7 day demand forecasting</span>
+      <span>• Full sustainability audit trail</span>
+      <span>• Built for retailers worldwide</span>
+      <span>• Value recovery tracking</span>
+      <span>• FEFO inventory ranking</span>
+      <span>• ML spoilage scoring (0–1)</span>
+      <span>• 3–7 day demand forecasting</span>
+      <span>• Full sustainability audit trail</span>
+      <span>• Built for retailers worldwide</span>
+      <span>• Value recovery tracking</span>
     </div>
   </div>
 
