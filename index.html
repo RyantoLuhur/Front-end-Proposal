@@ -1387,10 +1387,10 @@
 
       /* ── Top header row ── */
       .how__header {
-        display: grid;
-        grid-template-columns: 1fr auto;
+        display: flex;
+        flex-direction: row;
         gap: 2rem;
-        align-items: flex-end;
+        align-items: center;
         margin-bottom: clamp(3.5rem, 6vw, 6rem);
       }
       .how__heading {
@@ -1411,7 +1411,7 @@
         font-size: var(--step-0);
         line-height: 1.6;
         max-width: 36ch;
-        text-align: right;
+        text-align: left;
         align-self: flex-end;
         padding-bottom: 0.2rem;
       }
@@ -1943,15 +1943,29 @@
     <!-- ─── How it works ─────────────────────────────────────── -->
     <section class="how" id="how" aria-labelledby="how-h2">
       <div class="how__wrap">
-        <!-- Header row: big tagline left, sub right -->
-        <div class="how__header">
-          <h2 class="how__heading reveal" id="how-h2">
-            From receipt<br />to <em>rescue,</em><br />automated.
-          </h2>
-          <p class="how__sub reveal" style="transition-delay: 0.08s">
-            A continuous operational loop that closes the gap between dock
-            intake and zero edible waste.
-          </p>
+        <div>
+          <!-- Header row: big tagline left, sub right -->
+          <div class="how__header">
+            <div>
+              <h2 class="how__heading reveal" id="how-h2">
+                From receipt<br />to <em>rescue,</em><br />automated.
+              </h2>
+              <p class="how__sub reveal" style="transition-delay: 0.08s">
+                A continuous operational loop that closes the gap between dock
+                intake and zero edible waste.
+              </p>
+            </div>
+            <div class="features__visual" aria-label="FreshGuard AI Assistant">
+              <div class="features__visual-inner">
+                <img
+                  src="char_step.png"
+                  alt="FreshGuard AI Assistant"
+                  class="step__visual-img"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Horizontal pipeline rail -->
