@@ -1,0 +1,32 @@
+# Local agent and tool folders
+agents/
+.agents/
+impeccable/
+.json
+# Dependencies and generated output
+node_modules/
+/.next/
+/out/
+/build/
+test-results/
+playwright-report/
+.md
+# Local project files
+plans/
+831.gif
+DESIGN.md
+PRODUCT.md
+design.json
+# Environment and logs
+.env*.local
+.vercel/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Platform and build artifacts
+.DS_Store
+*.pem
+*.tsbuildinfo
+next-env.d.ts

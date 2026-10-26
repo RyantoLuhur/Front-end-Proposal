@@ -120,8 +120,8 @@
         position: fixed;
         inset: 0;
         z-index: 99999;
-        background: var(--c-ink);
-        color: oklch(96% 0.005 80);
+        background: oklch(97% 0.004 148);
+        color: var(--c-ink);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -143,10 +143,10 @@
         border-radius: 50%;
         background: radial-gradient(
           circle,
-          oklch(56% 0.175 142 / 0.22) 0%,
+          oklch(56% 0.175 142 / 0.08) 0%,
           transparent 65%
         );
-        filter: blur(50px);
+        filter: blur(60px);
         pointer-events: none;
         animation: ambient-drift 4s ease-in-out infinite alternate;
       }
@@ -169,90 +169,25 @@
         max-width: 340px;
         width: 90%;
       }
-      /* ── GIF Preloader Visual ── */
-      .preloader__gif-wrap {
-        width: 140px;
-        height: 140px;
+
+      /* ── Sprite animation ── */
+      .preloader__sprite-wrap {
+        width: 180px;
+        height: 180px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 0.35rem;
+        margin-bottom: 0.25rem;
       }
-      .preloader__gif {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
-        filter: drop-shadow(0 8px 24px oklch(0% 0 0 / 0.35));
-      }
-      /* ── Animated Delivery Truck (Preserved in CSS) ── */
-      .truck-scene {
-        width: 200px;
-        height: 100px;
-        position: relative;
-        margin-bottom: 0.5rem;
-      }
-      .truck-scene svg {
+      .preloader__sprite {
         width: 100%;
         height: 100%;
-        overflow: visible;
-      }
-      .truck-body {
-        animation: truck-rumble 0.35s ease-in-out infinite alternate;
-        transform-origin: bottom center;
-      }
-      @keyframes truck-rumble {
-        0% {
-          transform: translateY(0);
-        }
-        100% {
-          transform: translateY(-2px);
-        }
-      }
-      .wheel-spin {
-        animation: wheel-rotate 0.5s linear infinite;
-        transform-origin: center;
-        transform-box: fill-box;
-      }
-      @keyframes wheel-rotate {
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-      .road-line {
-        stroke-dasharray: 10 10;
-        animation: road-motion 0.5s linear infinite;
-      }
-      @keyframes road-motion {
-        0% {
-          stroke-dashoffset: 0;
-        }
-        100% {
-          stroke-dashoffset: -20;
-        }
-      }
-      .exhaust-puff {
-        animation: exhaust-blow 0.8s ease-out infinite;
-        transform-origin: 16px 54px;
-      }
-      .exhaust-puff:nth-child(2) {
-        animation-delay: 0.25s;
-      }
-      .exhaust-puff:nth-child(3) {
-        animation-delay: 0.5s;
-      }
-      @keyframes exhaust-blow {
-        0% {
-          opacity: 0.8;
-          transform: translate(0, 0) scale(0.6);
-        }
-        100% {
-          opacity: 0;
-          transform: translate(-18px, -8px) scale(1.4);
-        }
+        object-fit: contain;
+        image-rendering: auto;
       }
       .preloader__status {
         font-size: 0.82rem;
-        color: oklch(70% 0.008 80);
+        color: var(--c-ink-muted);
         font-weight: 500;
         letter-spacing: 0.02em;
         min-height: 1.25rem;
@@ -260,7 +195,7 @@
       .preloader__bar {
         width: 100%;
         height: 4px;
-        background: oklch(30% 0.01 60);
+        background: oklch(88% 0.008 148);
         border-radius: var(--r-pill);
         overflow: hidden;
         margin-top: 0.25rem;
@@ -268,7 +203,7 @@
       .preloader__bar-fill {
         height: 100%;
         width: 0%;
-        background: var(--c-saffron);
+        background: var(--c-primary);
         border-radius: var(--r-pill);
         transition: width 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
       }
@@ -276,7 +211,7 @@
         font-family: var(--ff-head);
         font-size: 0.82rem;
         font-weight: 700;
-        color: var(--c-saffron);
+        color: var(--c-primary);
         letter-spacing: 0.05em;
       }
 
@@ -323,7 +258,6 @@
       }
       .nav__links a {
         font-weight: 500;
-        color: var(--c-ink-muted);
         transition: color 0.2s;
         font-size: var(--step-0);
         white-space: nowrap;
@@ -493,20 +427,31 @@
 
       /* ─── Hero ───────────────────────────────────────────────── */
       .hero {
-        padding: clamp(1.25rem, 2.5vw, 2.25rem) 5vw clamp(1.5rem, 2.8vw, 2.5rem);
-        display: grid;
-        grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-        gap: clamp(1.5rem, 3.5vw, 3rem);
-        align-items: center;
-        max-width: 1240px;
-        margin: 0 auto;
         position: relative;
+        width: 100%;
+        background-color: var(--c-bg);
+        background-image: url("hero.jpeg");
+        background-size: cover;
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        padding: clamp(3.5rem, 6vw, 6rem) clamp(1.25rem, 4vw, 5vw)
+          clamp(3.5rem, 6vw, 5.5rem);
+        min-height: clamp(480px, 65vh, 640px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
       }
       .hero__content {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
+        max-width: 58ch;
+        margin: 0 auto;
         z-index: 2;
       }
       .hero-stagger {
@@ -532,6 +477,7 @@
       .hero__label {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         gap: 0.45rem;
         background: var(--c-saffron-bg);
         color: var(--c-saffron-d);
@@ -542,7 +488,7 @@
         font-weight: 700;
         letter-spacing: 0.04em;
         text-transform: uppercase;
-        margin-bottom: 0.75rem;
+        margin-bottom: 1.15rem;
       }
       .hero__label-dot {
         width: 6px;
@@ -564,68 +510,35 @@
       }
       .hero__h1 {
         font-family: var(--ff-head);
-        font-size: clamp(2.1rem, 3.6vw, 3.25rem);
+        font-size: clamp(2.3rem, 4.5vw, 3.8rem);
         font-weight: 900;
-        line-height: 1.08;
+        line-height: 1.1;
         letter-spacing: -0.035em;
-        margin-bottom: 0.85rem;
+        margin-bottom: 1.15rem;
         text-wrap: balance;
+        text-align: center;
       }
       .hero__h1 em {
         font-style: italic;
         color: var(--c-saffron);
       }
       .hero__sub {
-        font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+        font-size: clamp(0.98rem, 1.15vw, 1.12rem);
         color: var(--c-ink-muted);
-        max-width: 44ch;
-        line-height: 1.5;
-        margin-bottom: 1.25rem;
+        max-width: 48ch;
+        line-height: 1.6;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2rem;
         text-wrap: pretty;
+        text-align: center;
       }
       .hero__actions {
         display: flex;
-        gap: 0.75rem;
+        gap: 0.85rem;
         flex-wrap: wrap;
-        margin-bottom: 1.5rem;
         align-items: center;
-      }
-      .hero__stats {
-        display: flex;
-        gap: 1.25rem;
-        align-items: center;
-        padding-top: 1rem;
-        border-top: 1px solid oklch(from var(--c-ink) l c h / 0.1);
-        width: 100%;
-        max-width: 480px;
-      }
-      .hero__stat-item {
-        display: flex;
-        flex-direction: column;
-        gap: 0.15rem;
-      }
-      .hero__stat-val {
-        font-family: var(--ff-head);
-        font-size: clamp(1.2rem, 1.8vw, 1.6rem);
-        font-weight: 900;
-        color: var(--c-ink);
-        line-height: 1;
-        letter-spacing: -0.02em;
-      }
-      .hero__stat-val span {
-        color: var(--c-saffron);
-      }
-      .hero__stat-label {
-        font-size: 0.75rem;
-        color: var(--c-ink-muted);
-        font-weight: 500;
-        line-height: 1.2;
-      }
-      .hero__stat-sep {
-        width: 1px;
-        height: 28px;
-        background: oklch(from var(--c-ink) l c h / 0.1);
-        flex-shrink: 0;
+        justify-content: center;
       }
 
       /* Hero dashboard preview */
@@ -898,22 +811,40 @@
         font-size: 0.55rem;
         color: var(--c-ink-faint);
       }
-      @media (max-width: 960px) {
+      @media (max-width: 768px) {
         .hero {
-          display: flex;
-          justify-content: space-between;
-          flex-direction: column;
-          gap: 2.25rem;
-          padding-top: 2rem;
-          padding-bottom: 2.5rem;
+          background-position: 7% bottom;
+          padding-top: clamp(2rem, 5vw, 2.75rem);
+          padding-bottom: clamp(165px, 44vw, 220px);
+          padding-left: clamp(1.25rem, 5vw, 1.75rem);
+          padding-right: clamp(1.25rem, 5vw, 1.75rem);
+          min-height: auto;
+          justify-content: flex-start;
         }
-        .hero__visual-wrap {
-          max-width: 500px;
-          margin: 0 auto;
+        .hero__content {
+          max-width: 32ch;
         }
-        .hero__floating-card {
-          left: 0.5rem;
-          bottom: -0.65rem;
+        .hero__label {
+          font-size: 0.7rem;
+          padding: 0.2rem 0.7rem 0.2rem 0.45rem;
+          margin-bottom: 0.85rem;
+        }
+        .hero__h1 {
+          font-size: clamp(1.85rem, 7.2vw, 2.35rem);
+          line-height: 1.14;
+          margin-bottom: 0.75rem;
+        }
+        .hero__sub {
+          font-size: 0.92rem;
+          line-height: 1.5;
+          margin-bottom: 1.35rem;
+        }
+        .hero__actions {
+          gap: 0.65rem;
+        }
+        .hero__actions .btn {
+          font-size: 0.92rem;
+          padding: 0.75rem 1.25rem;
         }
       }
 
@@ -959,7 +890,7 @@
       /* ─── Features bento ─────────────────────────────────────── */
       .features {
         padding: clamp(4.5rem, 8vw, 7.5rem) 5vw;
-        max-width: 1320px;
+        max-width: 1400px;
         margin: 0 auto;
         position: relative;
       }
@@ -1025,16 +956,71 @@
         text-wrap: pretty;
       }
 
-      /* Bento grid: 3-col asymmetric */
+      /* ─── Features Split (Character on Left, Cards on Right) ─── */
+      .features__split {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.25fr);
+        gap: clamp(1.5rem, 3.5vw, 3.25rem);
+        align-items: center;
+      }
+
+      /* ─── Character Visual (feature.png on Left - Transparent & Light) ─── */
+      .features__visual {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      .features__visual-inner {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .features__visual-inner::before {
+        content: "";
+        position: absolute;
+        inset: 12% 16%;
+        background: radial-gradient(
+          circle,
+          oklch(56% 0.175 142 / 0.16) 0%,
+          transparent 70%
+        );
+        filter: blur(44px);
+        z-index: 0;
+        pointer-events: none;
+      }
+      .features__visual-img {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 16px 36px oklch(15% 0.02 148 / 0.12));
+        transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+      }
+      .features__visual-inner:hover .features__visual-img {
+        transform: translateY(-4px) scale(1.02);
+      }
+
+      /* ─── Feature Cards (on Right - Text Only) ───────────────── */
+      .features__cards,
       .bento {
         position: relative;
         z-index: 1;
         display: grid;
-        grid-template-columns: 1.16fr 1fr 1fr;
-        grid-template-rows: auto auto;
-        gap: clamp(1rem, 1.6vw, 1.5rem);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(1rem, 1.4vw, 1.25rem);
         align-items: stretch;
         perspective: 1200px;
+      }
+      .features__cards .bento__card {
+        grid-column: auto;
+        grid-row: auto;
       }
 
       /* ── Bento Grid Cards (3D Tilt & Specular Sheen) ── */
@@ -1120,8 +1106,6 @@
       /* Card 1: FEFO Inventory (Deep Forest Evergreen) */
       /* Card 1: FEFO Expiry-First Inventory (Crisp Luminous Mint Surface) */
       .bento__card--fefo {
-        grid-column: 1 / 2;
-        grid-row: 1 / 3;
         background: linear-gradient(
           175deg,
           oklch(99.5% 0.005 142) 0%,
@@ -1163,230 +1147,8 @@
         color: var(--c-ink-muted);
       }
 
-      /* FEFO Shelf Console (Full Height Vertical Distribution) */
-      .fefo-shelf {
-        flex: 1;
-        margin-top: 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 0.5rem;
-      }
-      .fefo-shelf__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.62rem;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: var(--c-ink-muted);
-        padding-bottom: 0.35rem;
-        border-bottom: 1px solid oklch(56% 0.175 142 / 0.14);
-        margin-bottom: 0.15rem;
-      }
-      .fefo-shelf__col-meta {
-        display: flex;
-        flex-direction: column;
-        gap: 0.1rem;
-        width: 78px;
-        flex-shrink: 0;
-      }
-      .fefo-shelf__sku {
-        font-size: 0.62rem;
-        color: var(--c-ink-muted);
-        font-weight: 600;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .fefo-sim {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.4rem;
-        margin-bottom: 0.5rem;
-        padding: 0.28rem 0.55rem;
-        background: #ffffff;
-        border: 1px solid oklch(56% 0.175 142 / 0.16);
-        box-shadow: 0 1px 4px oklch(56% 0.175 142 / 0.06);
-        border-radius: var(--r-pill);
-      }
-      .fefo-sim__label {
-        color: var(--c-ink-muted);
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        font-size: 0.6rem;
-      }
-      .fefo-sim__pills {
-        display: flex;
-        gap: 0.25rem;
-      }
-      .fefo-sim__btn {
-        background: transparent;
-        border: 1px solid transparent;
-        color: var(--c-ink-muted);
-        padding: 0.15rem 0.5rem;
-        border-radius: var(--r-pill);
-        font-size: 0.64rem;
-        font-weight: 700;
-        cursor: pointer;
-        transition:
-          background 0.18s,
-          color 0.18s,
-          border-color 0.18s;
-      }
-      .fefo-sim__btn:hover {
-        color: var(--c-ink);
-        background: oklch(56% 0.175 142 / 0.08);
-      }
-      .fefo-sim__btn.is-active {
-        background: var(--c-primary);
-        color: #ffffff;
-        border-color: var(--c-primary);
-        box-shadow: 0 2px 6px oklch(56% 0.175 142 / 0.25);
-      }
-      .fefo-shelf__row {
-        display: grid;
-        grid-template-columns: 80px 1fr auto;
-        gap: 0.65rem;
-        align-items: center;
-        background: #ffffff;
-        border: 1px solid oklch(56% 0.175 142 / 0.14);
-        box-shadow: 0 1px 3px oklch(15% 0.02 148 / 0.03);
-        border-radius: var(--r-sm);
-        padding: 0.45rem 0.65rem;
-        transition:
-          background 0.25s,
-          border-color 0.25s,
-          transform 0.2s,
-          box-shadow 0.2s;
-      }
-      .fefo-shelf__row:hover {
-        background: #ffffff;
-        border-color: oklch(56% 0.175 142 / 0.35);
-        box-shadow: 0 4px 12px oklch(56% 0.175 142 / 0.1);
-        transform: translateX(2px);
-      }
-      .fefo-shelf__row.is-critical {
-        border-color: oklch(60% 0.2 25 / 0.45);
-        background: oklch(98.5% 0.02 25);
-        animation: alert-settle 0.4s ease-out;
-      }
-      .fefo-shelf__label {
-        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-        font-size: 0.72rem;
-        font-weight: 800;
-        color: var(--c-ink);
-      }
-      .fefo-shelf__bar {
-        height: 7px;
-        border-radius: 4px;
-        position: relative;
-        background: oklch(93.5% 0.012 142);
-        overflow: hidden;
-      }
-      .fefo-shelf__bar-inner {
-        height: 100%;
-        border-radius: 4px;
-        transition:
-          width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-          background-color 0.3s;
-      }
-      .fefo-shelf__bar-inner--3 {
-        background: oklch(56% 0.2 25);
-        width: 28%;
-      }
-      .fefo-shelf__bar-inner--7 {
-        background: oklch(62% 0.18 45);
-        width: 46%;
-      }
-      .fefo-shelf__bar-inner--9 {
-        background: oklch(68% 0.16 65);
-        width: 58%;
-      }
-      .fefo-shelf__bar-inner--12 {
-        background: oklch(62% 0.16 120);
-        width: 70%;
-      }
-      .fefo-shelf__bar-inner--15 {
-        background: var(--c-primary);
-        width: 82%;
-      }
-      .fefo-shelf__bar-inner--18 {
-        background: var(--c-primary);
-        width: 92%;
-      }
-      .fefo-shelf__badge {
-        font-size: 0.64rem;
-        font-weight: 700;
-        padding: 0.15rem 0.45rem;
-        border-radius: var(--r-pill);
-        white-space: nowrap;
-        transition:
-          background-color 0.3s,
-          color 0.3s,
-          border-color 0.3s;
-      }
-      .fefo-shelf__badge--3 {
-        background: oklch(95.5% 0.035 25);
-        color: oklch(45% 0.18 25);
-        border: 1px solid oklch(65% 0.15 25 / 0.3);
-      }
-      .fefo-shelf__badge--7 {
-        background: oklch(95.5% 0.035 45);
-        color: oklch(48% 0.16 45);
-        border: 1px solid oklch(65% 0.15 45 / 0.3);
-      }
-      .fefo-shelf__badge--9 {
-        background: oklch(96% 0.035 65);
-        color: oklch(50% 0.15 65);
-        border: 1px solid oklch(65% 0.15 65 / 0.3);
-      }
-      .fefo-shelf__badge--12 {
-        background: oklch(96.5% 0.035 120);
-        color: oklch(42% 0.15 120);
-        border: 1px solid oklch(65% 0.15 120 / 0.3);
-      }
-      .fefo-shelf__badge--15 {
-        background: oklch(96.5% 0.035 142);
-        color: oklch(40% 0.16 142);
-        border: 1px solid oklch(65% 0.15 142 / 0.3);
-      }
-      .fefo-shelf__badge--18 {
-        background: oklch(96.5% 0.035 142);
-        color: oklch(40% 0.16 142);
-        border: 1px solid oklch(65% 0.15 142 / 0.3);
-      }
-
-      .fefo-shelf__footer {
-        display: flex;
-        align-items: center;
-        gap: 0.45rem;
-        font-size: 0.65rem;
-        font-weight: 600;
-        color: var(--c-ink-muted);
-        background: #ffffff;
-        border: 1px solid oklch(56% 0.175 142 / 0.16);
-        box-shadow: 0 1px 3px oklch(56% 0.175 142 / 0.05);
-        border-radius: var(--r-pill);
-        padding: 0.35rem 0.65rem;
-        margin-top: 0.25rem;
-      }
-      .fefo-footer-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--c-primary);
-        box-shadow: 0 0 6px var(--c-primary);
-        flex-shrink: 0;
-      }
-
       /* Card 2: Spoilage Risk Prediction — Warm Sage Green */
       .bento__card--predict {
-        grid-column: 2 / 4;
-        grid-row: 1 / 2;
         background: linear-gradient(
           140deg,
           oklch(95.5% 0.04 148) 0%,
@@ -1412,120 +1174,8 @@
         max-width: 62ch;
       }
 
-      /* Prediction score visual — sage green accents */
-      .predict-visual {
-        margin-top: auto;
-        padding-top: 1.25rem;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0.65rem;
-      }
-      .predict-item {
-        background: oklch(100% 0 0);
-        border: 1px solid oklch(56% 0.175 148 / 0.18);
-        box-shadow: 0 4px 12px oklch(56% 0.175 148 / 0.06);
-        border-radius: var(--r-sm);
-        padding: 0.75rem 0.6rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.35rem;
-        text-align: center;
-        cursor: pointer;
-        user-select: none;
-        transition:
-          transform 0.18s cubic-bezier(0.2, 0.9, 0.3, 1),
-          box-shadow 0.18s,
-          border-color 0.18s;
-      }
-      .predict-item:hover {
-        transform: translateY(-2px);
-        border-color: oklch(56% 0.175 148);
-        box-shadow: 0 8px 18px oklch(56% 0.175 148 / 0.18);
-      }
-      .predict-item:active {
-        transform: scale(0.96);
-      }
-      .predict-item.is-probed {
-        border-color: oklch(56% 0.175 148);
-        box-shadow: 0 0 0 2px oklch(56% 0.175 148 / 0.25);
-      }
-      .predict-item__name {
-        font-size: 0.78rem;
-        font-weight: 700;
-        color: var(--c-ink);
-      }
-      .predict-item__score {
-        font-family: var(--ff-head);
-        font-weight: 900;
-        font-size: var(--step-2);
-        line-height: 1;
-        transition: transform 0.2s;
-      }
-      .predict-item__score--low {
-        color: var(--c-low);
-      }
-      .predict-item__score--moderate {
-        color: oklch(52% 0.15 100);
-      }
-      .predict-item__score--high {
-        color: var(--c-high);
-      }
-      .predict-item__score--expiring {
-        color: var(--c-expiring);
-      }
-
-      .predict-item__badge {
-        font-size: 0.62rem;
-        font-weight: 700;
-        padding: 0.15rem 0.5rem;
-        border-radius: var(--r-pill);
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-      }
-      .predict-item__badge--low {
-        background: oklch(93% 0.06 142);
-        color: oklch(40% 0.16 142);
-      }
-      .predict-item__badge--moderate {
-        background: oklch(93% 0.06 100);
-        color: oklch(44% 0.14 100);
-      }
-      .predict-item__badge--high {
-        background: oklch(93% 0.06 45);
-        color: oklch(48% 0.16 45);
-      }
-      .predict-item__badge--expiring {
-        background: oklch(92% 0.07 25);
-        color: oklch(48% 0.18 25);
-      }
-
-      .predict-feedback {
-        margin-top: 0.65rem;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-size: 0.68rem;
-        font-weight: 600;
-        color: var(--c-ink-muted);
-        background: oklch(100% 0 0 / 0.8);
-        border: 1px solid oklch(56% 0.175 148 / 0.2);
-        border-radius: var(--r-pill);
-        padding: 0.3rem 0.75rem;
-      }
-      .predict-feedback__dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: oklch(56% 0.175 148);
-        box-shadow: 0 0 6px oklch(56% 0.175 148);
-      }
-
       /* Card 3: Demand Forecasting — Cool Forest Green */
       .bento__card--forecast {
-        grid-column: 2 / 3;
-        grid-row: 2 / 3;
         background: linear-gradient(
           145deg,
           oklch(94.5% 0.05 155) 0%,
@@ -1550,136 +1200,8 @@
         color: var(--c-ink-muted);
       }
 
-      /* Forecast chart container & HUD — forest green */
-      .forecast-panel {
-        margin-top: auto;
-        padding-top: 1.25rem;
-        display: flex;
-        flex-direction: column;
-      }
-      .forecast-chart-box {
-        background: oklch(98% 0.018 155);
-        border: 1px solid oklch(48% 0.16 155 / 0.16);
-        border-radius: var(--r-sm);
-        padding: 0.65rem 0.75rem 0.55rem;
-        overflow: hidden;
-        position: relative;
-      }
-      .forecast-hud {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.64rem;
-        font-weight: 700;
-        color: var(--c-ink);
-        padding-bottom: 0.45rem;
-        margin-bottom: 0.35rem;
-        border-bottom: 1px solid oklch(48% 0.16 155 / 0.14);
-        white-space: nowrap;
-        min-height: 18px;
-      }
-      .forecast-chart {
-        display: flex;
-        align-items: flex-end;
-        gap: 6px;
-        height: 68px;
-        border-bottom: 1px dashed oklch(48% 0.16 155 / 0.22);
-        padding-bottom: 2px;
-        position: relative;
-      }
-      .fc-col {
-        flex: 1;
-        display: flex;
-        flex-direction: row;
-        gap: 2px;
-        align-items: flex-end;
-        justify-content: center;
-        height: 100%;
-        cursor: pointer;
-        border-radius: 4px;
-        padding: 0 1px;
-        transition:
-          opacity 0.18s,
-          background-color 0.18s;
-      }
-      .forecast-chart.has-hover .fc-col:not(.is-active) {
-        opacity: 0.35;
-      }
-      .fc-col.is-active {
-        background: oklch(48% 0.16 155 / 0.08);
-      }
-      .fc-bar {
-        flex: 1;
-        max-width: 10px;
-        border-radius: 3px 3px 0 0;
-        transition:
-          opacity 0.2s,
-          transform 0.18s,
-          height 0.3s;
-        box-sizing: border-box;
-      }
-      .fc-col.is-active .fc-bar {
-        transform: scaleY(1.05);
-        transform-origin: bottom;
-      }
-      .fc-bar--demand {
-        background: oklch(48% 0.16 155);
-      }
-      .fc-bar--stock {
-        background: oklch(48% 0.16 155 / 0.14);
-        border: 1.5px solid oklch(48% 0.16 155);
-      }
-      .fc-days-row {
-        display: flex;
-        gap: 6px;
-        margin-top: 5px;
-      }
-      .fc-day {
-        flex: 1;
-        text-align: center;
-        font-size: 0.65rem;
-        color: var(--c-ink-muted);
-        font-weight: 700;
-        transition: color 0.18s;
-      }
-      .fc-day.is-active {
-        color: oklch(38% 0.15 155);
-        font-weight: 900;
-      }
-      .fc-legend {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0.5rem;
-        margin-top: 0.65rem;
-        padding: 0 0.15rem;
-      }
-      .fc-legend-item {
-        display: flex;
-        align-items: center;
-        gap: 0.35rem;
-        font-size: 0.68rem;
-        color: var(--c-ink-muted);
-        font-weight: 600;
-      }
-      .fc-legend-dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 2px;
-        flex-shrink: 0;
-      }
-      .fc-legend-dot--demand {
-        background: oklch(48% 0.16 155);
-      }
-      .fc-legend-dot--stock {
-        background: oklch(48% 0.16 155 / 0.14);
-        border: 1.5px solid oklch(48% 0.16 155);
-      }
-
       /* Card 4: Operations Dashboard (Vibrant Emerald Jewel Card) */
       .bento__card--dashboard {
-        grid-column: 3 / 4;
-        grid-row: 2 / 3;
         background: linear-gradient(
           145deg,
           oklch(52% 0.175 142) 0%,
@@ -1701,23 +1223,6 @@
         background: oklch(99% 0 0 / 0.18);
         color: oklch(99% 0 0);
         border: 1px solid oklch(99% 0 0 / 0.25);
-        cursor: pointer;
-        user-select: none;
-        transition:
-          background 0.15s,
-          transform 0.15s;
-      }
-      .bento__card--dashboard .bento__card-badge:hover {
-        background: oklch(99% 0 0 / 0.28);
-        transform: scale(1.03);
-      }
-      .bento__card--dashboard .bento__card-badge-dot {
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: var(--c-lime);
-        box-shadow: 0 0 6px var(--c-lime);
-        animation: pulse-dot 2s infinite ease-in-out;
       }
       .bento__card--dashboard .bento__card-title {
         color: oklch(99% 0 0);
@@ -1726,265 +1231,200 @@
         color: oklch(93% 0.02 148);
       }
 
-      /* Dashboard mini metrics */
-      .dash-metrics {
-        margin-top: auto;
-        padding-top: 1.5rem;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.55rem;
-      }
-      .dash-metric {
-        background: oklch(14% 0.03 148 / 0.32);
-        border: 1px solid oklch(99% 0 0 / 0.18);
-        backdrop-filter: blur(8px);
-        border-radius: var(--r-sm);
-        padding: 0.7rem 0.75rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        cursor: pointer;
-        user-select: none;
-        transition:
-          background 0.2s,
-          transform 0.2s,
-          border-color 0.2s;
-      }
-      .dash-metric:hover {
-        background: oklch(14% 0.03 148 / 0.45);
-        transform: translateY(-2px);
-        border-color: oklch(99% 0 0 / 0.35);
-      }
-      .dash-metric__val {
-        font-family: var(--ff-head);
-        font-weight: 900;
-        font-size: var(--step-1);
-        line-height: 1.1;
-        color: oklch(99% 0 0);
-        letter-spacing: -0.015em;
-        transition: color 0.2s;
-      }
-      .dash-metric__label {
-        font-size: 0.65rem;
-        color: oklch(92% 0.02 148);
-        margin-top: 0.25rem;
-        font-weight: 600;
-      }
-      .dash-sync-toast {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        background: oklch(99% 0 0);
-        color: var(--c-ink);
-        font-size: 0.65rem;
-        font-weight: 800;
-        padding: 0.25rem 0.65rem;
-        border-radius: var(--r-pill);
-        box-shadow: 0 8px 20px oklch(0% 0 0 / 0.25);
-        opacity: 0;
-        transform: translateY(6px);
-        transition:
-          opacity 0.25s,
-          transform 0.25s;
-        pointer-events: none;
-        z-index: 10;
-      }
-      .dash-sync-toast.is-shown {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      @media (max-width: 980px) {
-        .bento {
-          grid-template-columns: 1fr 1fr;
-          grid-template-rows: auto;
+      @media (max-width: 960px) {
+        .features__split {
+          grid-template-columns: 1fr;
+          gap: 2.25rem;
         }
-        .bento__card--fefo {
-          grid-column: 1 / 3;
-          grid-row: auto;
-        }
-        .bento__card--predict {
-          grid-column: 1 / 3;
-          grid-row: auto;
-        }
-        .bento__card--forecast {
-          grid-column: 1 / 2;
-          grid-row: auto;
-        }
-        .bento__card--dashboard {
-          grid-column: 2 / 3;
-          grid-row: auto;
+        .features__visual {
+          order: -1;
+          max-width: 360px;
+          margin: 0 auto;
         }
       }
       @media (max-width: 640px) {
+        .features__cards,
         .bento {
           grid-template-columns: 1fr;
           gap: 1rem;
         }
         .bento__card {
-          padding: 1.35rem 1.2rem;
-        }
-        .bento__card--fefo,
-        .bento__card--predict,
-        .bento__card--forecast,
-        .bento__card--dashboard {
-          grid-column: 1;
-          grid-row: auto;
-        }
-        .predict-visual {
-          grid-template-columns: repeat(2, 1fr);
+          padding: 1.25rem 1.15rem;
         }
       }
 
-      /* ─── How it works (Crisp Clean Mint Canvas) ─────────────── */
+      /* ─── How it works (Dark Pipeline) ───────────────────────── */
       .how {
-        background: var(--c-surface);
-        color: var(--c-ink);
-        padding: clamp(4.5rem, 7vw, 7rem) 5vw;
-        border-top: 1px solid oklch(from var(--c-ink) l c h / 0.08);
-        border-bottom: 1px solid oklch(from var(--c-ink) l c h / 0.08);
+        padding: clamp(5rem, 8vw, 8.5rem) clamp(1.25rem, 5vw, 5rem);
         position: relative;
+        overflow: hidden;
+        isolation: isolate;
       }
-      .how__inner {
-        max-width: 1240px;
+      /* Subtle radial glow behind heading */
+      .how::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 60%;
+        height: 55%;
+        background: radial-gradient(
+          ellipse at 20% 10%,
+          oklch(56% 0.175 142 / 0.12) 0%,
+          transparent 65%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+      .how__wrap {
+        padding: 20px;
+        max-width: 1340px;
         margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1fr 1.5fr;
-        gap: clamp(2.5rem, 5vw, 4.5rem);
-        align-items: start;
-      }
-      .how__left {
-        position: sticky;
-        top: 5.5rem;
+        position: relative;
+        z-index: 1;
         display: flex;
         flex-direction: column;
-        gap: 0.85rem;
-      }
-      .how__kicker {
-        display: inline-flex;
+        justify-content: center;
         align-items: center;
-        gap: 0.5rem;
-        font-size: var(--step-xs);
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--c-primary);
-        background: oklch(56% 0.175 142 / 0.1);
-        border: 1px solid oklch(56% 0.175 142 / 0.22);
-        border-radius: var(--r-pill);
-        padding: 0.35rem 0.85rem;
-        width: fit-content;
       }
-      .how__kicker-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--c-primary);
-        box-shadow: 0 0 8px var(--c-primary);
+
+      /* ── Top header row ── */
+      .how__header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 2rem;
+        align-items: flex-end;
+        margin-bottom: clamp(3.5rem, 6vw, 6rem);
       }
       .how__heading {
         font-family: var(--ff-head);
-        font-size: var(--step-3);
+        font-size: clamp(2.5rem, 5vw + 0.5rem, 5.25rem);
         font-weight: 900;
-        letter-spacing: -0.025em;
-        line-height: 1.1;
-        color: var(--c-ink);
+        letter-spacing: -0.035em;
+        line-height: 1;
         text-wrap: balance;
+        max-width: 18ch;
+      }
+      .how__heading em {
+        font-style: normal;
+        color: oklch(56% 0.175 142);
       }
       .how__sub {
-        color: var(--c-ink-muted);
+        color: oklch(62% 0.022 148);
         font-size: var(--step-0);
         line-height: 1.6;
-        max-width: 42ch;
+        max-width: 36ch;
+        text-align: right;
+        align-self: flex-end;
+        padding-bottom: 0.2rem;
       }
 
-      /* Distilled Connected Timeline */
-      .how__timeline {
+      /* ── Horizontal pipeline rail ── */
+      .how__rail {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0;
+        position: relative;
         list-style: none;
         padding: 0;
         margin: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 1.75rem;
       }
-      .how__step {
-        position: relative;
-        display: grid;
-        grid-template-columns: 40px 1fr;
-        gap: 1.25rem;
-        align-items: flex-start;
-      }
-      /* Connector line: runs between nodes ONLY — terminates precisely at node 05 */
-      .how__step:not(:last-child)::after {
+      /* Connecting thread — sits BEHIND the node circles */
+      .how__rail::before {
         content: "";
         position: absolute;
-        top: 20px;
-        bottom: -1.75rem;
-        left: 19px;
-        width: 2px;
-        background: oklch(56% 0.175 142 / 0.22);
-        z-index: 0;
+        top: 27px;
+        left: calc(10% + 28px);
+        right: calc(10% + 28px);
+        height: 2px;
+        background: linear-gradient(
+          to right,
+          oklch(56% 0.175 142 / 0.55),
+          oklch(56% 0.175 142 / 0.25) 50%,
+          oklch(56% 0.175 142 / 0.55)
+        );
         pointer-events: none;
+        z-index: 0;
+      }
+
+      .how__step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0 clamp(0.5rem, 1.2vw, 1.25rem);
+        position: relative;
+        z-index: 1;
       }
       .how__step-node {
-        width: 40px;
-        height: 40px;
-        border-radius: var(--r-pill);
-        background: #ffffff;
-        border: 2px solid oklch(56% 0.175 142 / 0.4);
-        color: oklch(42% 0.16 145);
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        border: 2px solid oklch(56% 0.175 142 / 0.6);
+        color: oklch(56% 0.175 142);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-        font-weight: 800;
-        font-size: 0.85rem;
-        box-shadow: 0 2px 6px oklch(56% 0.175 142 / 0.1);
-        transition:
-          transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1),
-          border-color 0.2s,
-          background-color 0.2s,
-          color 0.2s,
-          box-shadow 0.2s;
-        z-index: 1;
-        position: relative;
+        font-family: var(--ff-head);
+        font-weight: 900;
+        font-size: 1.05rem;
+        letter-spacing: -0.02em;
         flex-shrink: 0;
+        margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+        position: relative;
+        z-index: 2;
+        transition:
+          transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1),
+          border-color 0.22s,
+          background 0.22s,
+          box-shadow 0.22s;
       }
       @media (hover: hover) and (pointer: fine) {
         .how__step:hover .how__step-node {
-          background: oklch(56% 0.175 142);
-          color: #ffffff;
           border-color: oklch(56% 0.175 142);
-          transform: scale(1.08);
-          box-shadow: 0 4px 14px oklch(56% 0.175 142 / 0.35);
+          transform: translateY(-3px);
+          box-shadow: 0 8px 28px oklch(56% 0.175 142 / 0.4);
         }
-      }
-      .how__step-content {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        padding-top: 0.35rem;
       }
       .how__step-title {
         font-family: var(--ff-head);
         font-weight: 800;
-        font-size: var(--step-1);
-        color: var(--c-ink);
-        line-height: 1.25;
-        letter-spacing: -0.015em;
+        font-size: clamp(0.9rem, 1vw, 1.05rem);
+        color: oklch(15.91% 0.00792 145.297);
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        margin-bottom: 0.5rem;
       }
       .how__step-desc {
-        color: var(--c-ink-muted);
-        font-size: var(--step-0);
+        color: oklch(55% 0.018 148);
+        font-size: clamp(0.78rem, 0.82vw, 0.85rem);
         line-height: 1.55;
-        max-width: 54ch;
       }
-      @media (max-width: 820px) {
-        .how__inner {
+
+      /* ── Responsive ── */
+      @media (max-width: 900px) {
+        .how__header {
           grid-template-columns: 1fr;
+          gap: 1rem;
         }
-        .how__left {
-          position: static;
+        .how__sub {
+          text-align: left;
+          max-width: 52ch;
+        }
+        .how__rail {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2.5rem 0;
+        }
+        .how__rail::before {
+          display: none;
+        }
+      }
+      @media (max-width: 560px) {
+        .how__rail {
+          grid-template-columns: 1fr 1fr;
+        }
+        .how__step:last-child {
+          grid-column: 1 / -1;
         }
       }
 
@@ -2159,79 +1599,6 @@
         color: oklch(48% 0.008 80);
       }
 
-      /* Mobile navigation drawer */
-      .nav__mobile-menu {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: min(320px, 85vw);
-        background: var(--c-surface);
-        box-shadow: -8px 0 32px oklch(from var(--c-ink) l c h / 0.15);
-        transform: translateX(100%);
-        transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-        z-index: 200;
-        display: flex;
-        flex-direction: column;
-        padding: 1.5rem;
-      }
-      .nav__mobile-menu.is-open {
-        transform: translateX(0);
-      }
-      .nav__mobile-close {
-        align-self: flex-end;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: var(--c-ink);
-        padding: 0.5rem;
-        margin-bottom: 1.5rem;
-        cursor: pointer;
-      }
-      .nav__mobile-links {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-        margin-bottom: 2rem;
-      }
-      .nav__mobile-links a {
-        padding: 1rem 0;
-        font-size: var(--step-1);
-        font-weight: 600;
-        color: var(--c-ink);
-        border-bottom: 1px solid oklch(from var(--c-ink) l c h / 0.08);
-      }
-      .nav__mobile-actions {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-      .nav__overlay {
-        position: fixed;
-        inset: 0;
-        background: oklch(from var(--c-ink) l c h / 0.4);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-        z-index: 199;
-      }
-      .nav__overlay.is-visible {
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      /* Tablet navbar adjustments */
-      @media (max-width: 920px) {
-        .nav__links {
-          gap: 1.25rem;
-        }
-        .nav__links a {
-          font-size: 0.9rem;
-        }
-        .nav__login {
-          display: none;
-        }
-      }
       @media (max-width: 720px) {
         .footer__top {
           grid-template-columns: 1fr 1fr;
@@ -2265,208 +1632,13 @@
     <div id="preloader" class="preloader" aria-hidden="true">
       <div class="preloader__ambient"></div>
       <div class="preloader__content">
-        <div class="truck-scene" aria-hidden="true">
-          <svg
-            viewBox="0 0 160 80"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <!-- Exhaust Puffs -->
-            <circle
-              class="exhaust-puff"
-              cx="16"
-              cy="54"
-              r="3.5"
-              fill="oklch(70% 0.008 80 / 0.4)"
-            />
-            <circle
-              class="exhaust-puff"
-              cx="16"
-              cy="54"
-              r="2.5"
-              fill="oklch(70% 0.008 80 / 0.3)"
-            />
-            <circle
-              class="exhaust-puff"
-              cx="16"
-              cy="54"
-              r="1.5"
-              fill="oklch(70% 0.008 80 / 0.2)"
-            />
-
-            <!-- Road Line -->
-            <line
-              x1="0"
-              y1="70"
-              x2="160"
-              y2="70"
-              stroke="oklch(40% 0.01 60)"
-              stroke-width="2.5"
-            />
-            <line
-              class="road-line"
-              x1="0"
-              y1="70"
-              x2="160"
-              y2="70"
-              stroke="var(--c-saffron)"
-              stroke-width="2.5"
-            />
-
-            <!-- Truck Body Group (rumbling) -->
-            <g class="truck-body">
-              <!-- Headlight Beam -->
-              <polygon
-                points="128,52 160,46 160,68 128,58"
-                fill="url(#light-beam)"
-                opacity="0.35"
-              />
-
-              <!-- Cargo Container (Saffron with ribbed pattern) -->
-              <rect
-                x="22"
-                y="24"
-                width="68"
-                height="36"
-                rx="4"
-                fill="var(--c-saffron)"
-              />
-              <line
-                x1="38"
-                y1="24"
-                x2="38"
-                y2="60"
-                stroke="oklch(15% 0.01 60 / 0.15)"
-                stroke-width="1.5"
-              />
-              <line
-                x1="54"
-                y1="24"
-                x2="54"
-                y2="60"
-                stroke="oklch(15% 0.01 60 / 0.15)"
-                stroke-width="1.5"
-              />
-              <line
-                x1="70"
-                y1="24"
-                x2="70"
-                y2="60"
-                stroke="oklch(15% 0.01 60 / 0.15)"
-                stroke-width="1.5"
-              />
-              <text
-                x="56"
-                y="47"
-                font-size="14"
-                text-anchor="middle"
-                font-family="sans-serif"
-              >
-                🌱
-              </text>
-
-              <!-- Cabin -->
-              <path
-                d="M90 35 H110 L122 47 V60 H90 Z"
-                fill="oklch(96% 0.005 80)"
-              />
-              <!-- Windshield -->
-              <path d="M94 38 H108 L118 48 H94 Z" fill="oklch(22% 0.01 60)" />
-              <!-- Bumper -->
-              <rect
-                x="122"
-                y="55"
-                width="6"
-                height="5"
-                rx="1.5"
-                fill="oklch(60% 0.01 60)"
-              />
-              <!-- Headlight Lamp -->
-              <circle cx="123" cy="52" r="2.5" fill="oklch(98% 0.08 90)" />
-
-              <!-- Wheel Arches -->
-              <path d="M32 60 A11 11 0 0 1 54 60" fill="var(--c-ink)" />
-              <path d="M98 60 A11 11 0 0 1 120 60" fill="var(--c-ink)" />
-            </g>
-
-            <!-- Wheels -->
-            <g transform="translate(43, 60)">
-              <g class="wheel-spin">
-                <circle
-                  cx="0"
-                  cy="0"
-                  r="9"
-                  fill="oklch(24% 0.01 60)"
-                  stroke="oklch(15% 0.01 60)"
-                  stroke-width="2"
-                />
-                <circle cx="0" cy="0" r="4.5" fill="oklch(60% 0.01 60)" />
-                <line
-                  x1="-7"
-                  y1="0"
-                  x2="7"
-                  y2="0"
-                  stroke="oklch(85% 0.01 60)"
-                  stroke-width="1.2"
-                />
-                <line
-                  x1="0"
-                  y1="-7"
-                  x2="0"
-                  y2="7"
-                  stroke="oklch(85% 0.01 60)"
-                  stroke-width="1.2"
-                />
-              </g>
-            </g>
-            <g transform="translate(109, 60)">
-              <g class="wheel-spin">
-                <circle
-                  cx="0"
-                  cy="0"
-                  r="9"
-                  fill="oklch(24% 0.01 60)"
-                  stroke="oklch(15% 0.01 60)"
-                  stroke-width="2"
-                />
-                <circle cx="0" cy="0" r="4.5" fill="oklch(60% 0.01 60)" />
-                <line
-                  x1="-7"
-                  y1="0"
-                  x2="7"
-                  y2="0"
-                  stroke="oklch(85% 0.01 60)"
-                  stroke-width="1.2"
-                />
-                <line
-                  x1="0"
-                  y1="-7"
-                  x2="0"
-                  y2="7"
-                  stroke="oklch(85% 0.01 60)"
-                  stroke-width="1.2"
-                />
-              </g>
-            </g>
-
-            <defs>
-              <linearGradient
-                id="light-beam"
-                x1="128"
-                y1="55"
-                x2="160"
-                y2="55"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stop-color="var(--c-saffron)" stop-opacity="0.8" />
-                <stop
-                  offset="1"
-                  stop-color="var(--c-saffron)"
-                  stop-opacity="0"
-                />
-              </linearGradient>
-            </defs>
-          </svg>
+        <div class="preloader__sprite-wrap" aria-hidden="true">
+          <img
+            id="preloader-sprite"
+            class="preloader__sprite"
+            src="sprite/sprite_01.png"
+            alt=""
+          />
         </div>
         <div class="preloader__status" id="preloader-status">
           Dispatching inventory route...
@@ -2489,12 +1661,14 @@
       <ul class="nav__links" role="list">
         <li><a href="#features">Features</a></li>
         <li><a href="#how">How it works</a></li>
-        <li><a href="#pricing">Pricing</a></li>
+        <li>
+          <div class="nav__actions">
+            <a class="nav__login" href="#">Sign in</a>
+            <a class="btn btn--primary" href="#cta">Get early access</a>
+          </div>
+        </li>
       </ul>
-      <div class="nav__actions">
-        <a class="nav__login" href="#">Sign in</a>
-        <a class="btn btn--primary" href="#cta">Get early access</a>
-      </div>
+
       <button
         class="nav__hamburger"
         aria-label="Open menu"
@@ -2529,120 +1703,6 @@
             >See how it works</a
           >
         </div>
-        <div
-          class="hero__stats hero-stagger"
-          style="--i: 4"
-          aria-label="Key outcomes"
-        >
-          <div class="hero__stat-item">
-            <div class="hero__stat-val">37<span>%</span></div>
-            <div class="hero__stat-label">avg. spoilage cut</div>
-          </div>
-          <div class="hero__stat-sep" aria-hidden="true"></div>
-          <div class="hero__stat-item">
-            <div class="hero__stat-val"><span>$</span> 6k</div>
-            <div class="hero__stat-label">monthly recovered</div>
-          </div>
-          <div class="hero__stat-sep" aria-hidden="true"></div>
-          <div class="hero__stat-item">
-            <div class="hero__stat-val">3 <span>days</span></div>
-            <div class="hero__stat-label">to live insights</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mini dashboard preview container -->
-      <div class="hero__visual-wrap hero-stagger" style="--i: 2">
-        <div
-          class="hero__visual"
-          role="img"
-          aria-label="FreshGuard live operations dashboard preview"
-        >
-          <div class="hv__chrome">
-            <div class="hv__dots" aria-hidden="true">
-              <span class="hv__dot"></span>
-              <span class="hv__dot"></span>
-              <span class="hv__dot"></span>
-            </div>
-            <span class="hv__badge-live">Live Feed • Klang Valley Hub</span>
-          </div>
-          <div class="hv__header">
-            <span class="hv__title">Operations Console</span>
-            <span class="hv__date">Real-time Batch Status</span>
-          </div>
-          <div class="hv__metrics">
-            <div class="hv__metric">
-              <div class="hv__metric-val hv__metric-val--saffron">142</div>
-              <div class="hv__metric-label">Batches tracked</div>
-            </div>
-            <div class="hv__metric">
-              <div class="hv__metric-val hv__metric-val--lime">$4,210</div>
-              <div class="hv__metric-label">Rescued value</div>
-            </div>
-            <div class="hv__metric">
-              <div class="hv__metric-val hv__metric-val--coral">18</div>
-              <div class="hv__metric-label">Action required</div>
-            </div>
-          </div>
-          <div class="hv__batches" aria-label="Batch risk list">
-            <div class="hv__batch">
-              <span class="hv__batch-icon" aria-hidden="true">🍓</span>
-              <div class="hv__batch-info">
-                <div class="hv__batch-name">Strawberries — Lot 2B</div>
-                <div class="hv__batch-days">3 days to expiry • 40 pkts</div>
-              </div>
-              <span class="hv__badge hv__badge--expiring">Expiring</span>
-            </div>
-            <div class="hv__batch">
-              <span class="hv__batch-icon" aria-hidden="true">🥦</span>
-              <div class="hv__batch-info">
-                <div class="hv__batch-name">Broccoli — Lot 5A</div>
-                <div class="hv__batch-days">6 days to expiry • 18 crates</div>
-              </div>
-              <span class="hv__badge hv__badge--high">High</span>
-            </div>
-            <div class="hv__batch">
-              <span class="hv__batch-icon" aria-hidden="true">🥛</span>
-              <div class="hv__batch-info">
-                <div class="hv__batch-name">Full Cream Milk — Lot 1C</div>
-                <div class="hv__batch-days">11 days to expiry • 85 btls</div>
-              </div>
-              <span class="hv__badge hv__badge--moderate">Moderate</span>
-            </div>
-            <div class="hv__batch">
-              <span class="hv__batch-icon" aria-hidden="true">🍊</span>
-              <div class="hv__batch-info">
-                <div class="hv__batch-name">Oranges — Lot 3A</div>
-                <div class="hv__batch-days">19 days to expiry • 120 kg</div>
-              </div>
-              <span class="hv__badge hv__badge--low">Low</span>
-            </div>
-          </div>
-          <div>
-            <div class="hv__chart" aria-hidden="true">
-              <div class="hv__bar" style="height: 45%"></div>
-              <div class="hv__bar" style="height: 60%"></div>
-              <div class="hv__bar" style="height: 40%"></div>
-              <div class="hv__bar hv__bar--active" style="height: 80%"></div>
-              <div class="hv__bar" style="height: 55%"></div>
-              <div class="hv__bar" style="height: 70%"></div>
-              <div class="hv__bar" style="height: 50%"></div>
-            </div>
-            <div class="hv__chart-label" aria-hidden="true">
-              <span>M</span><span>T</span><span>W</span><span>T</span
-              ><span>F</span><span>S</span><span>S</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Floating offset badge -->
-        <div class="hero__floating-card" aria-hidden="true">
-          <div class="hfc__icon">⚡</div>
-          <div>
-            <div class="hfc__title">FEFO Pick Alert Sent</div>
-            <div class="hfc__sub">Shelf team reordered Lot 2B first</div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -2650,11 +1710,11 @@
     <div class="logos" aria-label="Used by grocery and F&B retailers">
       <span class="logos__label">Trusted by</span>
       <div class="logos__items">
-        <span class="logo-pill">SawitLovers</span>
-        <span class="logo-pill">WeLoveSawit</span>
-        <span class="logo-pill">Prawowo</span>
-        <span class="logo-pill">Pascawowo</span>
-        <span class="logo-pill">Ngawi</span>
+        <span class="logo-pill">Jaya Grocer</span>
+        <span class="logo-pill">Village Grocer</span>
+        <span class="logo-pill">Lotus's Retail</span>
+        <span class="logo-pill">AEON Big</span>
+        <span class="logo-pill">HeroMarket</span>
       </div>
     </div>
 
@@ -2674,427 +1734,104 @@
         </p>
       </div>
 
-      <div class="bento" role="list">
-        <!-- Card 1: FEFO -->
-        <article
-          class="bento__card bento__card--fefo reveal"
-          role="listitem"
-          aria-labelledby="feat-fefo-title"
+      <!-- Two-column split: character on the LEFT, cards on the RIGHT -->
+      <div class="features__split">
+        <!-- Left side: character visual (feature.png) -->
+        <div
+          class="features__visual reveal"
+          aria-label="FreshGuard AI Assistant"
         >
-          <div class="bento__card-head">
-            <div class="bento__card-num">01</div>
-            <span class="bento__card-badge">FEFO</span>
+          <div class="features__visual-inner">
+            <img
+              src="feature.png"
+              alt="FreshGuard AI Assistant"
+              class="features__visual-img"
+              loading="lazy"
+            />
           </div>
-          <h3 class="bento__card-title" id="feat-fefo-title">
-            Expiry-first inventory
-          </h3>
-          <p class="bento__card-body">
-            Shelved by days to expiry, not arrival date. Oldest batches stay
-            front-facing so nothing is forgotten at the back.
-          </p>
+        </div>
 
-          <!-- Overdrive: interactive time-warp simulation -->
-          <div class="fefo-sim" aria-label="Simulate elapsed days">
-            <span class="fefo-sim__label">Time warp:</span>
-            <div class="fefo-sim__pills" role="group">
-              <button
-                type="button"
-                class="fefo-sim__btn is-active"
-                data-warp="0"
-              >
-                Today
-              </button>
-              <button type="button" class="fefo-sim__btn" data-warp="2">
-                +2 Days
-              </button>
-              <button type="button" class="fefo-sim__btn" data-warp="4">
-                +4 Days
-              </button>
-            </div>
-          </div>
-
-          <div
-            class="fefo-shelf"
-            id="fefo-shelf"
-            aria-label="Batches ranked by days remaining"
+        <!-- Right side: the 4 cards (text only) -->
+        <div class="features__cards bento" role="list">
+          <!-- Card 1: FEFO -->
+          <article
+            class="bento__card bento__card--fefo reveal"
+            role="listitem"
+            aria-labelledby="feat-fefo-title"
           >
-            <div class="fefo-shelf__header">
-              <span>Rack A-04 · Cold Display</span>
-              <span>Shelf Priority Queue</span>
+            <div class="bento__card-head">
+              <div class="bento__card-num">01</div>
+              <span class="bento__card-badge">FEFO</span>
             </div>
+            <h3 class="bento__card-title" id="feat-fefo-title">
+              Expiry-first inventory
+            </h3>
+            <p class="bento__card-body">
+              Shelved by days to expiry, not arrival date. Oldest batches stay
+              front-facing so nothing is forgotten at the back.
+            </p>
+          </article>
 
-            <div class="fefo-shelf__row" id="shelf-lot-b">
-              <div class="fefo-shelf__col-meta">
-                <span class="fefo-shelf__label">Lot B</span>
-                <span class="fefo-shelf__sku">Strawberries</span>
-              </div>
-              <div class="fefo-shelf__bar">
-                <div
-                  class="fefo-shelf__bar-inner fefo-shelf__bar-inner--3"
-                ></div>
-              </div>
-              <span class="fefo-shelf__badge fefo-shelf__badge--3">3 days</span>
-            </div>
-
-            <div class="fefo-shelf__row" id="shelf-lot-a">
-              <div class="fefo-shelf__col-meta">
-                <span class="fefo-shelf__label">Lot A</span>
-                <span class="fefo-shelf__sku">Fresh Milk</span>
-              </div>
-              <div class="fefo-shelf__bar">
-                <div
-                  class="fefo-shelf__bar-inner fefo-shelf__bar-inner--7"
-                ></div>
-              </div>
-              <span class="fefo-shelf__badge fefo-shelf__badge--7">7 days</span>
-            </div>
-
-            <div class="fefo-shelf__row" id="shelf-lot-e">
-              <div class="fefo-shelf__col-meta">
-                <span class="fefo-shelf__label">Lot E</span>
-                <span class="fefo-shelf__sku">Farm Yogurt</span>
-              </div>
-              <div class="fefo-shelf__bar">
-                <div
-                  class="fefo-shelf__bar-inner fefo-shelf__bar-inner--9"
-                ></div>
-              </div>
-              <span class="fefo-shelf__badge fefo-shelf__badge--9">9 days</span>
-            </div>
-
-            <div class="fefo-shelf__row" id="shelf-lot-d">
-              <div class="fefo-shelf__col-meta">
-                <span class="fefo-shelf__label">Lot D</span>
-                <span class="fefo-shelf__sku">Broccoli</span>
-              </div>
-              <div class="fefo-shelf__bar">
-                <div
-                  class="fefo-shelf__bar-inner fefo-shelf__bar-inner--12"
-                ></div>
-              </div>
-              <span class="fefo-shelf__badge fefo-shelf__badge--12"
-                >12 days</span
-              >
-            </div>
-
-            <div class="fefo-shelf__row" id="shelf-lot-f">
-              <div class="fefo-shelf__col-meta">
-                <span class="fefo-shelf__label">Lot F</span>
-                <span class="fefo-shelf__sku">Avocados</span>
-              </div>
-              <div class="fefo-shelf__bar">
-                <div
-                  class="fefo-shelf__bar-inner fefo-shelf__bar-inner--15"
-                ></div>
-              </div>
-              <span class="fefo-shelf__badge fefo-shelf__badge--15"
-                >15 days</span
-              >
-            </div>
-
-            <div class="fefo-shelf__row" id="shelf-lot-c">
-              <div class="fefo-shelf__col-meta">
-                <span class="fefo-shelf__label">Lot C</span>
-                <span class="fefo-shelf__sku">Oranges</span>
-              </div>
-              <div class="fefo-shelf__bar">
-                <div
-                  class="fefo-shelf__bar-inner fefo-shelf__bar-inner--18"
-                ></div>
-              </div>
-              <span class="fefo-shelf__badge fefo-shelf__badge--18"
-                >18 days</span
-              >
-            </div>
-
-            <div class="fefo-shelf__footer">
-              <span class="fefo-footer-dot"></span>
-              <span id="fefo-footer-text"
-                >Front-facing pick sequence active</span
-              >
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 2: ML Prediction -->
-        <article
-          class="bento__card bento__card--predict reveal"
-          role="listitem"
-          aria-labelledby="feat-predict-title"
-          style="transition-delay: 0.08s"
-        >
-          <div class="bento__card-head">
-            <div class="bento__card-num">02</div>
-            <span class="bento__card-badge">ML Risk Model</span>
-          </div>
-          <h3 class="bento__card-title" id="feat-predict-title">
-            Spoilage risk prediction
-          </h3>
-          <p class="bento__card-body">
-            Every batch scored 0 to 1 against velocity, weather, and shelf life
-            to trigger markdowns days before spoilage.
-          </p>
-
-          <div
-            class="predict-visual"
-            id="predict-visual"
-            aria-label="Risk scores for batches"
+          <!-- Card 2: ML Prediction -->
+          <article
+            class="bento__card bento__card--predict reveal"
+            role="listitem"
+            aria-labelledby="feat-predict-title"
+            style="transition-delay: 0.08s"
           >
-            <div
-              class="predict-item"
-              data-item="oranges"
-              title="Click to test AI inference on Valencia Oranges"
-            >
-              <span class="predict-item__name">Oranges</span>
-              <div class="predict-item__score predict-item__score--low">
-                0.12
-              </div>
-              <span class="predict-item__badge predict-item__badge--low"
-                >Low</span
-              >
+            <div class="bento__card-head">
+              <div class="bento__card-num">02</div>
+              <span class="bento__card-badge">ML Risk Model</span>
             </div>
-            <div
-              class="predict-item"
-              data-item="milk"
-              title="Click to test AI inference on Fresh Farm Milk"
-            >
-              <span class="predict-item__name">Milk</span>
-              <div class="predict-item__score predict-item__score--moderate">
-                0.47
-              </div>
-              <span class="predict-item__badge predict-item__badge--moderate"
-                >Moderate</span
-              >
-            </div>
-            <div
-              class="predict-item"
-              data-item="broccoli"
-              title="Click to test AI inference on Organic Broccoli"
-            >
-              <span class="predict-item__name">Broccoli</span>
-              <div class="predict-item__score predict-item__score--high">
-                0.73
-              </div>
-              <span class="predict-item__badge predict-item__badge--high"
-                >High</span
-              >
-            </div>
-            <div
-              class="predict-item"
-              data-item="strawberries"
-              title="Click to test AI inference on Strawberries"
-            >
-              <span class="predict-item__name">Strawberries</span>
-              <div class="predict-item__score predict-item__score--expiring">
-                0.91
-              </div>
-              <span class="predict-item__badge predict-item__badge--expiring"
-                >Expiring</span
-              >
-            </div>
-          </div>
+            <h3 class="bento__card-title" id="feat-predict-title">
+              Spoilage risk prediction
+            </h3>
+            <p class="bento__card-body">
+              Every batch scored 0 to 1 against velocity, weather, and shelf
+              life to trigger markdowns days before spoilage.
+            </p>
+          </article>
 
-          <div
-            class="predict-feedback"
-            id="predict-feedback"
-            aria-live="polite"
+          <!-- Card 3: Demand forecasting -->
+          <article
+            class="bento__card bento__card--forecast reveal"
+            role="listitem"
+            aria-labelledby="feat-forecast-title"
+            style="transition-delay: 0.12s"
           >
-            <span class="predict-feedback__dot" aria-hidden="true"></span>
-            <span id="predict-feedback-msg"
-              >Click any batch to inspect real-time AI inference</span
-            >
-          </div>
-        </article>
+            <div class="bento__card-head">
+              <div class="bento__card-num">03</div>
+              <span class="bento__card-badge">7-Day Projection</span>
+            </div>
+            <h3 class="bento__card-title" id="feat-forecast-title">
+              Demand forecasting
+            </h3>
+            <p class="bento__card-body">
+              Sales projections matched against current stock so buyers can halt
+              replenishment before surplus builds.
+            </p>
+          </article>
 
-        <!-- Card 3: Demand forecasting -->
-        <article
-          class="bento__card bento__card--forecast reveal"
-          role="listitem"
-          aria-labelledby="feat-forecast-title"
-          style="transition-delay: 0.12s"
-        >
-          <div class="bento__card-head">
-            <div class="bento__card-num">03</div>
-            <span class="bento__card-badge">7-Day Projection</span>
-          </div>
-          <h3 class="bento__card-title" id="feat-forecast-title">
-            Demand forecasting
-          </h3>
-          <p class="bento__card-body">
-            Sales projections matched against current stock so buyers can halt
-            replenishment before surplus builds.
-          </p>
-
-          <div
-            class="forecast-panel"
-            aria-label="Demand vs stock chart for this week"
-            aria-hidden="true"
+          <!-- Card 4: Operations dashboard -->
+          <article
+            class="bento__card bento__card--dashboard reveal"
+            role="listitem"
+            aria-labelledby="feat-dash-title"
+            style="transition-delay: 0.16s"
           >
-            <div class="forecast-chart-box">
-              <!-- Overdrive: live HUD telemetry -->
-              <div class="forecast-hud" id="forecast-hud">
-                <span id="fc-hud-day">Thursday (Peak Surplus)</span>
-                <span id="fc-hud-val"
-                  >Demand: 58 · Stock: 50
-                  <span style="color: var(--c-saffron-d)"
-                    >(+8 buffer)</span
-                  ></span
-                >
-              </div>
-
-              <div class="forecast-chart" id="forecast-chart">
-                <div
-                  class="fc-col"
-                  data-day="Monday"
-                  data-demand="34"
-                  data-stock="48"
-                  data-delta="-14 under-ordered"
-                >
-                  <div class="fc-bar fc-bar--demand" style="height: 34px"></div>
-                  <div class="fc-bar fc-bar--stock" style="height: 48px"></div>
-                </div>
-                <div
-                  class="fc-col"
-                  data-day="Tuesday"
-                  data-demand="42"
-                  data-stock="46"
-                  data-delta="-4 balanced"
-                >
-                  <div class="fc-bar fc-bar--demand" style="height: 42px"></div>
-                  <div class="fc-bar fc-bar--stock" style="height: 46px"></div>
-                </div>
-                <div
-                  class="fc-col"
-                  data-day="Wednesday"
-                  data-demand="48"
-                  data-stock="54"
-                  data-delta="-6 surplus risk"
-                >
-                  <div class="fc-bar fc-bar--demand" style="height: 48px"></div>
-                  <div class="fc-bar fc-bar--stock" style="height: 54px"></div>
-                </div>
-                <div
-                  class="fc-col is-active"
-                  data-day="Thursday (Peak)"
-                  data-demand="58"
-                  data-stock="50"
-                  data-delta="+8 buffer peak"
-                >
-                  <div class="fc-bar fc-bar--demand" style="height: 58px"></div>
-                  <div class="fc-bar fc-bar--stock" style="height: 50px"></div>
-                </div>
-                <div
-                  class="fc-col"
-                  data-day="Friday"
-                  data-demand="40"
-                  data-stock="58"
-                  data-delta="-18 surplus risk"
-                >
-                  <div class="fc-bar fc-bar--demand" style="height: 40px"></div>
-                  <div class="fc-bar fc-bar--stock" style="height: 58px"></div>
-                </div>
-                <div
-                  class="fc-col"
-                  data-day="Saturday"
-                  data-demand="32"
-                  data-stock="50"
-                  data-delta="-18 weekend surplus"
-                >
-                  <div class="fc-bar fc-bar--demand" style="height: 32px"></div>
-                  <div class="fc-bar fc-bar--stock" style="height: 50px"></div>
-                </div>
-                <div
-                  class="fc-col"
-                  data-day="Sunday"
-                  data-demand="26"
-                  data-stock="44"
-                  data-delta="-18 hold orders"
-                >
-                  <div class="fc-bar fc-bar--demand" style="height: 26px"></div>
-                  <div class="fc-bar fc-bar--stock" style="height: 44px"></div>
-                </div>
-              </div>
-              <div class="fc-days-row">
-                <span class="fc-day">M</span>
-                <span class="fc-day">T</span>
-                <span class="fc-day">W</span>
-                <span
-                  class="fc-day fc-day.is-active fc-day--highlight"
-                  title="Peak re-order point"
-                  >T*</span
-                >
-                <span class="fc-day">F</span>
-                <span class="fc-day">S</span>
-                <span class="fc-day">S</span>
-              </div>
+            <div class="bento__card-head">
+              <div class="bento__card-num">04</div>
+              <span class="bento__card-badge">Telemetry</span>
             </div>
-            <div class="fc-legend">
-              <div class="fc-legend-item">
-                <div class="fc-legend-dot fc-legend-dot--demand"></div>
-                Forecast demand
-              </div>
-              <div class="fc-legend-item">
-                <div class="fc-legend-dot fc-legend-dot--stock"></div>
-                Stock on hand
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 4: Dashboard -->
-        <article
-          class="bento__card bento__card--dashboard reveal"
-          role="listitem"
-          aria-labelledby="feat-dash-title"
-          style="transition-delay: 0.16s"
-        >
-          <!-- Overdrive: Floating Sync Toast -->
-          <div class="dash-sync-toast" id="dash-sync-toast" aria-hidden="true">
-            +$75 recovered
-          </div>
-
-          <div class="bento__card-head">
-            <div class="bento__card-num">04</div>
-            <span
-              class="bento__card-badge"
-              id="dash-telemetry-btn"
-              title="Click to trigger manual store telemetry sync"
-            >
-              <span class="bento__card-badge-dot" aria-hidden="true"></span>
-              Telemetry
-            </span>
-          </div>
-          <h3 class="bento__card-title" id="feat-dash-title">
-            Operations dashboard
-          </h3>
-          <p class="bento__card-body">
-            Track clearance speed, food salvaged, and value recovered with an
-            automated audit trail for ESG reporting.
-          </p>
-
-          <div
-            class="dash-metrics"
-            id="dash-metrics"
-            aria-label="Dashboard metrics"
-          >
-            <div class="dash-metric" title="Click to sync telemetry">
-              <div class="dash-metric__val" id="metric-recovered">$4,210</div>
-              <div class="dash-metric__label">Recovered</div>
-            </div>
-            <div class="dash-metric" title="Click to sync telemetry">
-              <div class="dash-metric__val" id="metric-clearance">84%</div>
-              <div class="dash-metric__label">Clearance rate</div>
-            </div>
-            <div class="dash-metric" title="Click to sync telemetry">
-              <div class="dash-metric__val" id="metric-batches">142</div>
-              <div class="dash-metric__label">Batches tracked</div>
-            </div>
-            <div class="dash-metric" title="Click to sync telemetry">
-              <div class="dash-metric__val" id="metric-food">38 kg</div>
-              <div class="dash-metric__label">Food rescued</div>
-            </div>
-          </div>
-        </article>
+            <h3 class="bento__card-title" id="feat-dash-title">
+              Operations dashboard
+            </h3>
+            <p class="bento__card-body">
+              Track clearance speed, food salvaged, and value recovered with an
+              automated audit trail for ESG reporting.
+            </p>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -3118,71 +1855,59 @@
 
     <!-- ─── How it works ─────────────────────────────────────── -->
     <section class="how" id="how" aria-labelledby="how-h2">
-      <div class="how__inner">
-        <div class="how__left reveal">
-          <div class="how__kicker">
-            <span class="how__kicker-dot" aria-hidden="true"></span>
-            Pipeline
-          </div>
-          <h2 class="how__heading" id="how-h2">
-            From receipt to rescue, automated.
+      <div class="how__wrap">
+        <!-- Header row: big tagline left, sub right -->
+        <div class="how__header">
+          <h2 class="how__heading reveal" id="how-h2">
+            From receipt<br />to <em>rescue,</em><br />automated.
           </h2>
-          <p class="how__sub">
-            A continuous operational loop closing the gap between dock intake
-            and zero edible waste.
+          <p class="how__sub reveal" style="transition-delay: 0.08s">
+            A continuous operational loop that closes the gap between dock
+            intake and zero edible waste.
           </p>
         </div>
 
-        <ol class="how__timeline" role="list">
+        <!-- Horizontal pipeline rail -->
+        <ol class="how__rail" role="list">
           <li class="how__step reveal">
             <div class="how__step-node" aria-hidden="true">01</div>
-            <div class="how__step-content">
-              <h3 class="how__step-title">Dock Intake</h3>
-              <p class="how__step-desc">
-                Connect POS or drop a batch CSV. Received dates and expiry
-                timestamps ingest automatically.
-              </p>
-            </div>
+            <h3 class="how__step-title">Dock Intake</h3>
+            <p class="how__step-desc">
+              Connect POS or drop a batch CSV. Received dates and expiry
+              timestamps ingest automatically.
+            </p>
           </li>
-          <li class="how__step reveal" style="transition-delay: 0.06s">
+          <li class="how__step reveal" style="transition-delay: 0.07s">
             <div class="how__step-node" aria-hidden="true">02</div>
-            <div class="how__step-content">
-              <h3 class="how__step-title">FEFO Rotation</h3>
-              <p class="how__step-desc">
-                Inventory ranks by days to expiry. Staff pick lists keep front
-                displays fresh first.
-              </p>
-            </div>
+            <h3 class="how__step-title">FEFO Rotation</h3>
+            <p class="how__step-desc">
+              Inventory ranks by days to expiry. Staff pick lists keep front
+              displays fresh first.
+            </p>
           </li>
-          <li class="how__step reveal" style="transition-delay: 0.12s">
+          <li class="how__step reveal" style="transition-delay: 0.14s">
             <div class="how__step-node" aria-hidden="true">03</div>
-            <div class="how__step-content">
-              <h3 class="how__step-title">Spoilage Scoring</h3>
-              <p class="how__step-desc">
-                Machine learning evaluates sales velocity and weather to
-                forecast shelf-life risks daily.
-              </p>
-            </div>
+            <h3 class="how__step-title">Spoilage Scoring</h3>
+            <p class="how__step-desc">
+              ML evaluates sales velocity and weather to forecast shelf-life
+              risks daily.
+            </p>
           </li>
-          <li class="how__step reveal" style="transition-delay: 0.18s">
+          <li class="how__step reveal" style="transition-delay: 0.21s">
             <div class="how__step-node" aria-hidden="true">04</div>
-            <div class="how__step-content">
-              <h3 class="how__step-title">Surplus Rescue</h3>
-              <p class="how__step-desc">
-                Dynamic markdowns, flash retail bundles, and food rescue
-                donations trigger before waste occurs.
-              </p>
-            </div>
+            <h3 class="how__step-title">Surplus Rescue</h3>
+            <p class="how__step-desc">
+              Dynamic markdowns and food rescue donations trigger before waste
+              occurs.
+            </p>
           </li>
-          <li class="how__step reveal" style="transition-delay: 0.24s">
+          <li class="how__step reveal" style="transition-delay: 0.28s">
             <div class="how__step-node" aria-hidden="true">05</div>
-            <div class="how__step-content">
-              <h3 class="how__step-title">Audit &amp; ESG</h3>
-              <p class="how__step-desc">
-                Recovery values and diverted kilograms log instantly to your
-                sustainability ledger.
-              </p>
-            </div>
+            <h3 class="how__step-title">Audit &amp; ESG</h3>
+            <p class="how__step-desc">
+              Recovery values and diverted kilograms log instantly to your
+              sustainability ledger.
+            </p>
           </li>
         </ol>
       </div>
@@ -3225,9 +1950,8 @@
         <div class="footer__col">
           <h3>Product</h3>
           <ul>
-            <li><a href="#">Features</a></li>
-            <li><a href="#">Pricing</a></li>
-            <li><a href="#">Integrations</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how">How it Works</a></li>
             <li><a href="#">Changelog</a></li>
           </ul>
         </div>
@@ -3262,7 +1986,30 @@
         const bar = document.getElementById("preloader-bar");
         const count = document.getElementById("preloader-count");
         const status = document.getElementById("preloader-status");
+        const spriteEl = document.getElementById("preloader-sprite");
         if (!loader) return;
+
+        // ── Sprite frame cycling ──
+        const TOTAL_FRAMES = 30;
+        const FPS = 5; // ~12fps playback
+        const MS_PER_FRAME = 1000 / FPS;
+        let spriteFrame = 0;
+        let lastFrameTime = 0;
+        let spriteRaf = null;
+
+        function pad(n) {
+          return n < 10 ? "0" + n : String(n);
+        }
+        function stepSprite(ts) {
+          if (ts - lastFrameTime >= MS_PER_FRAME) {
+            spriteFrame = (spriteFrame + 1) % TOTAL_FRAMES;
+            if (spriteEl)
+              spriteEl.src = "sprite/sprite_" + pad(spriteFrame + 1) + ".png";
+            lastFrameTime = ts;
+          }
+          spriteRaf = requestAnimationFrame(stepSprite);
+        }
+        if (spriteEl) spriteRaf = requestAnimationFrame(stepSprite);
 
         function triggerHeroStagger() {
           document
@@ -3279,6 +2026,27 @@
           return;
         }
 
+        // Session check: skip preloader if already viewed this session
+        if (sessionStorage.getItem("fg_visited")) {
+          loader.style.display = "none";
+          triggerHeroStagger();
+          return;
+        }
+        function dismissPreloader() {
+          if (loader.classList.contains("is-hidden")) return;
+          clearInterval(interval);
+          if (spriteRaf) cancelAnimationFrame(spriteRaf);
+          loader.classList.add("is-hidden");
+          triggerHeroStagger();
+          sessionStorage.setItem("fg_visited", "1");
+          setTimeout(() => {
+            document.body.style.overflow = "";
+          }, 600);
+        }
+        loader.addEventListener("click", dismissPreloader);
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" || e.key === " ") dismissPreloader();
+        });
         document.body.style.overflow = "hidden";
 
         const phases = [
@@ -3304,6 +2072,7 @@
           if (progress === 100) {
             clearInterval(interval);
             setTimeout(() => {
+              if (spriteRaf) cancelAnimationFrame(spriteRaf);
               loader.classList.add("is-hidden");
               triggerHeroStagger();
               setTimeout(() => {
@@ -3391,279 +2160,6 @@
             card.addEventListener("mouseleave", onLeave);
           });
         }
-
-        // 2. Card 1: Interactive Shelf Time-Warp Engine
-        const simBtns = document.querySelectorAll(".fefo-sim__btn");
-        const rowB = document.getElementById("shelf-lot-b");
-        const rowA = document.getElementById("shelf-lot-a");
-        const rowE = document.getElementById("shelf-lot-e");
-        const rowD = document.getElementById("shelf-lot-d");
-        const rowF = document.getElementById("shelf-lot-f");
-        const rowC = document.getElementById("shelf-lot-c");
-        const fefoFooterText = document.getElementById("fefo-footer-text");
-
-        const shelfStates = {
-          0: {
-            items: [
-              {
-                el: rowB,
-                bar: "28%",
-                text: "3 days",
-                badge: "fefo-shelf__badge--3",
-                crit: false,
-              },
-              {
-                el: rowA,
-                bar: "44%",
-                text: "7 days",
-                badge: "fefo-shelf__badge--7",
-                crit: false,
-              },
-              {
-                el: rowE,
-                bar: "56%",
-                text: "9 days",
-                badge: "fefo-shelf__badge--9",
-                crit: false,
-              },
-              {
-                el: rowD,
-                bar: "68%",
-                text: "12 days",
-                badge: "fefo-shelf__badge--12",
-                crit: false,
-              },
-              {
-                el: rowF,
-                bar: "80%",
-                text: "15 days",
-                badge: "fefo-shelf__badge--15",
-                crit: false,
-              },
-              {
-                el: rowC,
-                bar: "92%",
-                text: "18 days",
-                badge: "fefo-shelf__badge--18",
-                crit: false,
-              },
-            ],
-            footer: "Front-facing pick sequence active · 0 critical",
-          },
-          2: {
-            items: [
-              {
-                el: rowB,
-                bar: "10%",
-                text: "1 day · Urgent",
-                badge: "fefo-shelf__badge--3",
-                crit: true,
-              },
-              {
-                el: rowA,
-                bar: "32%",
-                text: "5 days",
-                badge: "fefo-shelf__badge--7",
-                crit: false,
-              },
-              {
-                el: rowE,
-                bar: "44%",
-                text: "7 days",
-                badge: "fefo-shelf__badge--7",
-                crit: false,
-              },
-              {
-                el: rowD,
-                bar: "56%",
-                text: "10 days",
-                badge: "fefo-shelf__badge--12",
-                crit: false,
-              },
-              {
-                el: rowF,
-                bar: "68%",
-                text: "13 days",
-                badge: "fefo-shelf__badge--15",
-                crit: false,
-              },
-              {
-                el: rowC,
-                bar: "80%",
-                text: "16 days",
-                badge: "fefo-shelf__badge--18",
-                crit: false,
-              },
-            ],
-            footer: "⚠ 1 batch critical (Lot B) · Push to front aisle",
-          },
-          4: {
-            items: [
-              {
-                el: rowB,
-                bar: "0%",
-                text: "EXPIRED (0d)",
-                badge: "fefo-shelf__badge--3",
-                crit: true,
-              },
-              {
-                el: rowA,
-                bar: "20%",
-                text: "3 days · Urgent",
-                badge: "fefo-shelf__badge--3",
-                crit: true,
-              },
-              {
-                el: rowE,
-                bar: "32%",
-                text: "5 days",
-                badge: "fefo-shelf__badge--7",
-                crit: false,
-              },
-              {
-                el: rowD,
-                bar: "44%",
-                text: "8 days",
-                badge: "fefo-shelf__badge--9",
-                crit: false,
-              },
-              {
-                el: rowF,
-                bar: "56%",
-                text: "11 days",
-                badge: "fefo-shelf__badge--12",
-                crit: false,
-              },
-              {
-                el: rowC,
-                bar: "68%",
-                text: "14 days",
-                badge: "fefo-shelf__badge--15",
-                crit: false,
-              },
-            ],
-            footer: "🚨 2 batches flagged · Trigger automated markdown",
-          },
-        };
-
-        simBtns.forEach((btn) => {
-          btn.addEventListener("click", () => {
-            simBtns.forEach((b) => b.classList.remove("is-active"));
-            btn.classList.add("is-active");
-            const warp = Number(btn.getAttribute("data-warp") || 0);
-            const state = shelfStates[warp] || shelfStates[0];
-            state.items.forEach((item) => {
-              if (!item.el) return;
-              const barInner = item.el.querySelector(".fefo-shelf__bar-inner");
-              const badge = item.el.querySelector(".fefo-shelf__badge");
-              if (barInner) barInner.style.width = item.bar;
-              if (badge) {
-                badge.textContent = item.text;
-                badge.className = "fefo-shelf__badge " + item.badge;
-              }
-              if (item.crit) item.el.classList.add("is-critical");
-              else item.el.classList.remove("is-critical");
-            });
-            if (fefoFooterText && state.footer) {
-              fefoFooterText.textContent = state.footer;
-            }
-          });
-        });
-
-        // 3. Card 2: AI Spoilage Prober
-        const predictItems = document.querySelectorAll(".predict-item");
-        const predictMsg = document.getElementById("predict-feedback-msg");
-        const proberIntel = {
-          oranges:
-            "Valencia Oranges: Low risk (0.12) · High velocity, 8d safety buffer",
-          milk: "Fresh Farm Milk: Moderate risk (0.47) · Cooler rotation flagged for midday shift",
-          broccoli:
-            "Organic Broccoli: High risk (0.73) · Ambient humidity trigger · 20% clearance proposed",
-          strawberries:
-            "Strawberries: Expiring (0.91) · 48h limit reached · 40% markdown dispatched to POS",
-        };
-
-        predictItems.forEach((item) => {
-          item.addEventListener("click", () => {
-            predictItems.forEach((i) => i.classList.remove("is-probed"));
-            item.classList.add("is-probed");
-            const key = item.getAttribute("data-item");
-            if (predictMsg && proberIntel[key]) {
-              predictMsg.textContent = proberIntel[key];
-            }
-            const scoreEl = item.querySelector(".predict-item__score");
-            if (scoreEl) {
-              scoreEl.style.transform = "scale(1.15)";
-              setTimeout(() => {
-                scoreEl.style.transform = "scale(1)";
-              }, 220);
-            }
-          });
-        });
-
-        // 4. Card 3: Forecast Chart Hover HUD
-        const fcCols = document.querySelectorAll(".fc-col");
-        const fcChart = document.getElementById("forecast-chart");
-        const fcHudDay = document.getElementById("fc-hud-day");
-        const fcHudVal = document.getElementById("fc-hud-val");
-        const fcDays = document.querySelectorAll(".fc-day");
-
-        fcCols.forEach((col, idx) => {
-          function activate() {
-            fcCols.forEach((c) => c.classList.remove("is-active"));
-            fcDays.forEach((d) => d.classList.remove("is-active"));
-            col.classList.add("is-active");
-            if (fcDays[idx]) fcDays[idx].classList.add("is-active");
-            if (fcChart) fcChart.classList.add("has-hover");
-
-            const day = col.getAttribute("data-day") || "";
-            const dem = col.getAttribute("data-demand") || "";
-            const stk = col.getAttribute("data-stock") || "";
-            const del = col.getAttribute("data-delta") || "";
-            if (fcHudDay) fcHudDay.textContent = day;
-            if (fcHudVal)
-              fcHudVal.innerHTML =
-                "Demand: " +
-                dem +
-                " · Stock: " +
-                stk +
-                ' <span style="color:var(--c-saffron-d)">(' +
-                del +
-                ")</span>";
-          }
-
-          col.addEventListener("mouseenter", activate);
-          col.addEventListener("click", activate);
-        });
-
-        if (fcChart) {
-          fcChart.addEventListener("mouseleave", () => {
-            fcChart.classList.remove("has-hover");
-          });
-        }
-
-        // 5. Card 4: Operations Dashboard Live Telemetry Sync Pulse
-        const dashBtn = document.getElementById("dash-telemetry-btn");
-        const dashMetrics = document.getElementById("dash-metrics");
-        const syncToast = document.getElementById("dash-sync-toast");
-        const recVal = document.getElementById("metric-recovered");
-        const clearVal = document.getElementById("metric-clearance");
-        const batchVal = document.getElementById("metric-batches");
-
-        function triggerSync() {
-          if (!syncToast) return;
-          syncToast.classList.add("is-shown");
-          if (recVal) recVal.textContent = "$4,285";
-          if (clearVal) clearVal.textContent = "86%";
-          if (batchVal) batchVal.textContent = "144";
-
-          setTimeout(() => {
-            syncToast.classList.remove("is-shown");
-          }, 2200);
-        }
-
-        if (dashBtn) dashBtn.addEventListener("click", triggerSync);
-        if (dashMetrics) dashMetrics.addEventListener("click", triggerSync);
       })();
     </script>
   </body>
