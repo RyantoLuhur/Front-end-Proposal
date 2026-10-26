@@ -848,43 +848,142 @@
         }
       }
 
-      /* ─── Logos / social proof ───────────────────────────────── */
+      /* ─── Logos / Social Proof (Adapted for Desktop, Tablet & Mobile) ─ */
       .logos {
         background: var(--c-surface);
         border-top: 1px solid oklch(from var(--c-ink) l c h / 0.06);
         border-bottom: 1px solid oklch(from var(--c-ink) l c h / 0.06);
-        padding: 1.25rem 5vw;
+        padding: clamp(1rem, 2vw, 1.35rem) clamp(1rem, 5vw, 4rem);
         display: flex;
         align-items: center;
-        gap: 1rem;
-        flex-wrap: wrap;
         justify-content: center;
+        gap: clamp(1rem, 2.5vw, 2.5rem);
+        position: relative;
       }
       .logos__label {
-        font-size: var(--step-xs);
+        font-size: clamp(0.68rem, 0.75vw, 0.75rem);
         color: var(--c-ink-muted);
-        font-weight: 600;
-        letter-spacing: 0.05em;
+        font-weight: 700;
+        letter-spacing: 0.08em;
         text-transform: uppercase;
         white-space: nowrap;
-        padding-right: 1rem;
+        padding-right: clamp(1rem, 2vw, 1.75rem);
         border-right: 1px solid oklch(from var(--c-ink) l c h / 0.12);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        flex-shrink: 0;
+      }
+      .logos__label-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--c-primary);
+        box-shadow: 0 0 6px var(--c-primary);
       }
       .logos__items {
         display: flex;
-        gap: 2rem;
-        flex-wrap: wrap;
+        gap: clamp(0.65rem, 1.2vw, 1.25rem);
         align-items: center;
+        flex-wrap: wrap;
         justify-content: center;
       }
       .logo-pill {
         background: var(--c-bg);
-        border: 1px solid oklch(from var(--c-ink) l c h / 0.09);
+        border: 1px solid oklch(from var(--c-ink) l c h / 0.08);
         border-radius: var(--r-pill);
-        padding: 0.4rem 1.1rem;
-        font-size: 0.82rem;
-        font-weight: 600;
-        color: var(--c-ink-muted);
+        padding: 0.45rem 1.1rem;
+        font-size: clamp(0.8rem, 0.85vw, 0.88rem);
+        font-weight: 700;
+        color: var(--c-ink);
+        letter-spacing: -0.01em;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        white-space: nowrap;
+        transition:
+          transform 0.18s cubic-bezier(0.2, 0.9, 0.3, 1),
+          border-color 0.18s,
+          box-shadow 0.18s;
+        user-select: none;
+      }
+      .logo-pill__dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: oklch(56% 0.175 142 / 0.4);
+        transition:
+          background 0.18s,
+          transform 0.18s;
+      }
+      @media (hover: hover) and (pointer: fine) {
+        .logo-pill:hover {
+          transform: translateY(-1px);
+          border-color: oklch(56% 0.175 142 / 0.35);
+          box-shadow: 0 4px 12px oklch(15% 0.02 148 / 0.06);
+        }
+        .logo-pill:hover .logo-pill__dot {
+          background: var(--c-primary);
+          transform: scale(1.2);
+        }
+      }
+
+      /* ── Tablet Adaptation ── */
+      @media (max-width: 860px) {
+        .logos {
+          flex-direction: column;
+          gap: 0.85rem;
+          padding: 1.15rem 1.25rem;
+          text-align: center;
+        }
+        .logos__label {
+          border-right: none;
+          padding-right: 0;
+          font-size: 0.72rem;
+        }
+      }
+
+      /* ── Mobile Adaptation (Touch-swipe rail with edge fade) ── */
+      @media (max-width: 580px) {
+        .logos {
+          padding: 1rem 0 1.25rem;
+          overflow: hidden;
+        }
+        .logos__items {
+          display: flex;
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          width: 100%;
+          justify-content: flex-start;
+          padding: 0.25rem 1.25rem;
+          gap: 0.65rem;
+          mask-image: linear-gradient(
+            to right,
+            transparent,
+            black 20px,
+            black calc(100% - 20px),
+            transparent
+          );
+          -webkit-mask-image: linear-gradient(
+            to right,
+            transparent,
+            black 20px,
+            black calc(100% - 20px),
+            transparent
+          );
+        }
+        .logos__items::-webkit-scrollbar {
+          display: none;
+        }
+        .logo-pill {
+          scroll-snap-align: center;
+          flex-shrink: 0;
+          padding: 0.55rem 1.15rem;
+          font-size: 0.85rem;
+        }
       }
 
       /* ─── Features bento ─────────────────────────────────────── */
@@ -1697,13 +1796,20 @@
 
     <!-- ─── Used by ───────────────────────────────────────────── -->
     <div class="logos" aria-label="Used by grocery and F&B retailers">
-      <span class="logos__label">Trusted by</span>
+      <span class="logos__label">
+        <span class="logos__label-dot" aria-hidden="true"></span>
+        Trusted by
+      </span>
       <div class="logos__items">
-        <span class="logo-pill">SawitLover</span>
-        <span class="logo-pill">WeLoveSawit</span>
-        <span class="logo-pill">Prawowo</span>
-        <span class="logo-pill">Pascawowo</span>
-        <span class="logo-pill">Teddy</span>
+        <span class="logo-pill"
+          ><span class="logo-pill__dot"></span>SawitLover</span
+        >
+        <span class="logo-pill"
+          ><span class="logo-pill__dot"></span>Prawowo</span
+        >
+        <span class="logo-pill"
+          ><span class="logo-pill__dot"></span>PascaWowo</span
+        >
       </div>
     </div>
 
