@@ -986,10 +986,15 @@
         }
       }
 
-      /* ─── Features bento ─────────────────────────────────────── */
+      /* ─── Features Layout (Aligned with Reference Image) ──────── */
       .features {
-        padding: clamp(4.5rem, 8vw, 7.5rem) 5vw;
-        max-width: 1400px;
+        background-color: #f4faf6;
+        background-image: url("bg_feature.jpeg");
+        background-size: cover;
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        padding: clamp(3.5rem, 6vw, 6rem) clamp(1.25rem, 4.5vw, 5rem);
+        max-width: 1380px;
         margin: 0 auto;
         position: relative;
       }
@@ -1003,79 +1008,63 @@
         height: 420px;
         background: radial-gradient(
           ellipse at center,
-          oklch(56% 0.175 142 / 0.06) 0%,
+          oklch(56% 0.175 142 / 0.05) 0%,
           transparent 70%
         );
         pointer-events: none;
         z-index: 0;
       }
-      .features__intro {
-        position: relative;
-        z-index: 1;
-        max-width: 68ch;
-        margin-bottom: clamp(2.5rem, 5vw, 3.75rem);
-      }
-      .features__kicker {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        font-size: var(--step-xs);
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--c-primary-d);
-        background: oklch(56% 0.175 142 / 0.1);
-        border: 1px solid oklch(56% 0.175 142 / 0.22);
-        border-radius: var(--r-pill);
-        padding: 0.35rem 0.85rem;
-        margin-bottom: 1rem;
-      }
-      .features__kicker-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: var(--c-primary);
-        box-shadow: 0 0 8px var(--c-primary);
-      }
-      .features__h2 {
-        font-family: var(--ff-head);
-        font-size: var(--step-3);
-        font-weight: 900;
-        letter-spacing: -0.025em;
-        line-height: 1.1;
-        margin-bottom: 0.85rem;
-        text-wrap: balance;
-        color: var(--c-ink);
-      }
-      .features__sub {
-        font-size: var(--step-1);
-        color: var(--c-ink-muted);
-        line-height: 1.6;
-        max-width: 58ch;
-        text-wrap: pretty;
-      }
 
-      /* ─── Features Split (Character on Left, Cards on Right) ─── */
+      /* ─── Two-Column Split (Left: Heading + Mascot, Right: 2x2 Cards) ─── */
       .features__split {
         position: relative;
         z-index: 1;
         display: grid;
-        grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.25fr);
-        gap: clamp(1.5rem, 3.5vw, 3.25rem);
-        align-items: center;
+        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.15fr);
+        gap: clamp(2rem, 4vw, 4.25rem);
+        align-items: stretch;
       }
 
-      /* ─── Character Visual (feature.png on Left - Transparent & Light) ─── */
+      /* Left Column: Heading + Mascot Stack */
+      .features__left {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: clamp(1.5rem, 3vw, 2.5rem);
+      }
+      .features__intro {
+        position: relative;
+        z-index: 1;
+      }
+      .features__h2 {
+        font-family: var(--ff-head);
+        font-size: clamp(2.35rem, 3.8vw + 0.4rem, 3.85rem);
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        line-height: 1.06;
+        margin-bottom: 0.85rem;
+        color: var(--c-ink);
+        text-wrap: balance;
+      }
+      .features__sub {
+        font-size: clamp(0.92rem, 1.05vw, 1.05rem);
+        color: var(--c-ink-muted);
+        line-height: 1.5;
+        max-width: 38ch;
+      }
+
+      /* Mascot Visual (Prominent, Grounded, Large Scale) */
       .features__visual {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: flex-start;
+        align-items: flex-end;
         position: relative;
+        flex: 1;
       }
       .features__visual-inner {
         position: relative;
         width: 100%;
-        max-width: 500px;
+        max-width: 450px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1086,7 +1075,7 @@
         inset: 12% 16%;
         background: radial-gradient(
           circle,
-          oklch(56% 0.175 142 / 0.16) 0%,
+          oklch(56% 0.175 142 / 0.14) 0%,
           transparent 70%
         );
         filter: blur(44px);
@@ -1099,23 +1088,22 @@
         width: 100%;
         height: auto;
         display: block;
-        filter: drop-shadow(0 16px 36px oklch(15% 0.02 148 / 0.12));
+        filter: drop-shadow(0 16px 32px oklch(15% 0.02 148 / 0.1));
         transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
       }
       .features__visual-inner:hover .features__visual-img {
         transform: translateY(-4px) scale(1.02);
       }
 
-      /* ─── Feature Cards (on Right - Text Only) ───────────────── */
+      /* ─── Feature Cards (2x2 Grid on Right) ───────────────── */
       .features__cards,
       .bento {
         position: relative;
         z-index: 1;
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: clamp(1rem, 1.4vw, 1.25rem);
+        gap: clamp(1rem, 1.4vw, 1.35rem);
         align-items: stretch;
-        perspective: 1200px;
       }
       .features__cards .bento__card {
         grid-column: auto;
@@ -1191,15 +1179,15 @@
       }
       .bento__card-title {
         font-family: var(--ff-head);
-        font-size: var(--step-2);
-        font-weight: 900;
+        font-size: clamp(1.15rem, 1.3vw, 1.35rem);
+        font-weight: 800;
         letter-spacing: -0.02em;
-        line-height: 1.15;
+        line-height: 1.18;
         margin-bottom: 0.65rem;
       }
       .bento__card-body {
-        font-size: var(--step-0);
-        line-height: 1.6;
+        font-size: clamp(0.82rem, 0.88vw, 0.9rem);
+        line-height: 1.55;
       }
 
       /* Card 1: FEFO Inventory (Deep Forest Evergreen) */
@@ -1333,11 +1321,21 @@
       @media (max-width: 960px) {
         .features__split {
           grid-template-columns: 1fr;
-          gap: 2.25rem;
+          gap: 2.5rem;
+        }
+        .features__left {
+          text-align: center;
+          align-items: center;
+        }
+        .features__sub {
+          margin: 0 auto;
         }
         .features__visual {
-          order: -1;
-          max-width: 360px;
+          justify-content: center;
+          width: 100%;
+        }
+        .features__visual-inner {
+          max-width: 380px;
           margin: 0 auto;
         }
       }
@@ -1813,36 +1811,34 @@
       </div>
     </div>
 
-    <!-- ─── Features bento ───────────────────────────────────── -->
+    <!-- ─── Features Section (Left: Header + Mascot, Right: 2x2 Cards) ─── -->
     <section class="features" id="features" aria-labelledby="feat-h2">
-      <div class="features__intro reveal">
-        <h2 class="features__h2" id="feat-h2">
-          Four systems. One problem solved.
-        </h2>
-        <p class="features__sub">
-          Automated inventory intelligence from dock to checkout. Stop food
-          waste before it leaves the shelf.
-        </p>
-      </div>
-
-      <!-- Two-column split: character on the LEFT, cards on the RIGHT -->
       <div class="features__split">
-        <!-- Left side: character visual (feature.png) -->
-        <div
-          class="features__visual reveal"
-          aria-label="FreshGuard AI Assistant"
-        >
-          <div class="features__visual-inner">
-            <img
-              src="feature.png"
-              alt="FreshGuard AI Assistant"
-              class="features__visual-img"
-              loading="lazy"
-            />
+        <!-- Left Column: Heading + Subtitle + Large Mascot -->
+        <div class="features__left reveal">
+          <div class="features__intro">
+            <h2 class="features__h2" id="feat-h2">
+              Four systems. One<br />problem solved.
+            </h2>
+            <p class="features__sub">
+              Automated inventory intelligence from dock to checkout. Stop food
+              waste before it leaves the shelf.
+            </p>
+          </div>
+
+          <div class="features__visual" aria-label="FreshGuard AI Assistant">
+            <div class="features__visual-inner">
+              <img
+                src="char2.png"
+                alt="FreshGuard AI Assistant"
+                class="features__visual-img"
+                loading="lazy"
+              />
+            </div>
           </div>
         </div>
 
-        <!-- Right side: the 4 cards (text only) -->
+        <!-- Right Column: the 4 cards (text & badges preserved) -->
         <div class="features__cards bento" role="list">
           <!-- Card 1: FEFO -->
           <article
@@ -2079,7 +2075,7 @@
 
         // ── Sprite frame cycling ──
         const TOTAL_FRAMES = 30;
-        const FPS = 5; // ~12fps playback
+        const FPS = 10; // ~12fps playback
         const MS_PER_FRAME = 1000 / FPS;
         let spriteFrame = 0;
         let lastFrameTime = 0;
